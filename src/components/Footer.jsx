@@ -45,7 +45,7 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-4">
               <img src={logo} alt="School Logo" className="h-12" />
               <h3 className="font-bold text-white">
-                L.M. Educational Academy
+                Sahodara International<br />Public School
               </h3>
             </div>
 

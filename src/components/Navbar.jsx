@@ -7,7 +7,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinkStyle = ({ isActive }) =>
-    `relative font-semibold text-sm md:text-base lg:text-lg transition-all duration-300 
+    `relative font-semibold text-sm md:text-lg lg:text-xl transition-all duration-300 
     ${
       isActive
         ? "text-white bg-indigo-600/20 px-3 py-1 rounded-full"
@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <header className="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-800 shadow-2xl sticky top-0 z-50 backdrop-blur-md bg-opacity-95 w-full">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 md:h-24 lg:h-28 gap-2 md:gap-4 lg:gap-6">
+        <div className="flex items-center justify-between h-20 md:h-22 lg:h-26 gap-2 md:gap-3 lg:gap-6">
           {/* Logo Section - Responsive for Mobile, Tablet, Laptop, Desktop */}
           <Link
             to="/"
@@ -38,23 +38,19 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Sahodara International Public School"
-              className="h-10 md:h-14 lg:h-16 w-auto object-contain flex-shrink-0 drop-shadow-lg group-hover:scale-110 transition-transform duration-300"
+              className="h-10 md:h-12 lg:h-14 w-auto object-contain flex-shrink-0 drop-shadow-lg group-hover:scale-110 transition-transform duration-300"
             />
             <div className="flex flex-col min-w-0">
-              {/* School Name - Responsive */}
+              {/* School Name - Responsive in Two Lines */}
               <h1 className="text-sm md:text-lg lg:text-xl font-extrabold leading-tight tracking-wide 
               text-white drop-shadow-lg group-hover:text-yellow-200 transition-colors duration-300">
-                Sahodara International Public School
+                Sahodara International<br />Public School
               </h1>
-              {/* Subtitle - Responsive */}
-              <p className="text-xs md:text-sm text-gray-300 font-semibold tracking-wide group-hover:text-gray-200 transition-colors duration-300">
-                Senior Secondary School, Kakore
-              </p>
             </div>
           </Link>
 
           {/* Desktop Menu - Responsive */}
-          <nav className="hidden md:flex items-center gap-2 lg:gap-4">
+          <nav className="hidden md:flex items-center gap-3 md:gap-4 lg:gap-5">
             <NavLink to="/" className={navLinkStyle}>
               Home
             </NavLink>
