@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Facilities from "../components/Facilities/Facilities";
+import AboutSection from "../components/AboutSection/AboutSection";
 import { useNavigate } from "react-router-dom";
 import {
   Sparkles,
@@ -15,6 +16,7 @@ import {
   Users,
   Award,
 } from "lucide-react";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -48,6 +50,7 @@ const Home = () => {
     setIsVideoPlaying(true);
     setVideoKey(prev => prev + 1); // Increment key to restart video from beginning
   };
+  
 
   // Scroll-triggered animation for Smart School App section
   const [isVisible, setIsVisible] = useState(false);
@@ -142,6 +145,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+       <AboutSection />
 
 {/* ================= SMART SCHOOL APP ================= */}
 {/* ================= SMART SCHOOL APP ================= */}
@@ -243,6 +247,7 @@ const Home = () => {
 </section>
 
       <Facilities />
+     
 
       {/* ================= PREMIUM YOUTUBE SECTION ================= */}
       <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-r from-indigo-100 via-purple-50 to-blue-100 relative overflow-hidden">
