@@ -42,7 +42,7 @@ const ContactSection = () => {
                 <Phone className="text-3xl" />
               </div>
               <h3 className="text-2xl font-semibold mb-3 text-white">Call Us On</h3>
-              <p className="mb-3 text-lg text-gray-200">+91 7737676701</p>
+              <p className="mb-3 text-lg text-gray-200"> 097923 47399</p>
               <p className="text-sm opacity-80 text-gray-400">
                 Monday to Saturday, 9:00 AM – 5:00 PM
               </p>
@@ -67,8 +67,7 @@ const ContactSection = () => {
               </div>
               <h3 className="text-2xl font-semibold mb-3 text-white">Our Location</h3>
               <p className="text-sm opacity-80 leading-relaxed text-gray-400">
-                Adkaliya chauraha, opposite Meenakshi Gas Godam,
-                Udaipur Road, Salumber, Rajasthan 313027
+                 RXP2+45C, Parsauna, Uttar Pradesh 274309
               </p>
             </div>
 
