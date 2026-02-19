@@ -324,30 +324,97 @@ import {
 } from "framer-motion";
 import {
   X,
-  Heart,
-  Search,
-  Download,
   ChevronLeft,
   ChevronRight,
   Grid,
   Layers,
   Sparkles,
-  Share2,
+  Search,
 } from "lucide-react";
 
 /* ===================== IMAGE DATA ===================== */
 
 const galleryImages = [
-  { id: 1, category: "Architecture", src: "https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=90", title: "Modern Campus" },
-  { id: 2, category: "Student Life", src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=90", title: "Study Session" },
-  { id: 3, category: "Sports", src: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=90", title: "Championship" },
-  { id: 4, category: "Tech", src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=90", title: "Coding Lab" },
-  { id: 5, category: "Architecture", src: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=90", title: "Library Hall" },
-  { id: 6, category: "Events", src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=90", title: "Graduation" },
-  { id: 7, category: "Student Life", src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=90", title: "Group Project" },
-  { id: 8, category: "Arts", src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=90", title: "Art Exhibition" },
-  { id: 9, category: "Tech", src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=90", title: "Innovation Lab" },
-  { id: 10, category: "Nature", src: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=90", title: "Campus Green" },
+  {
+    id: 1,
+    category: "Architecture",
+    src: "https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=90",
+    title: "Modern Campus",
+    description:
+      "Our beautifully designed campus provides a safe and inspiring learning environment for students from Nursery to Class 12.",
+  },
+  {
+    id: 2,
+    category: "Student Life",
+    src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=90",
+    title: "Study Session",
+    description:
+      "Collaborative classroom learning encourages teamwork, creativity, and academic excellence.",
+  },
+  {
+    id: 3,
+    category: "Sports",
+    src: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=90",
+    title: "Championship",
+    description:
+      "Students actively participate in inter-school championships promoting discipline and sportsmanship.",
+  },
+  {
+    id: 4,
+    category: "Tech",
+    src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=90",
+    title: "Coding Lab",
+    description:
+      "Advanced computer labs equipped with modern systems for digital literacy and programming skills.",
+  },
+  {
+    id: 5,
+    category: "Architecture",
+    src: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=90",
+    title: "Library Hall",
+    description:
+      "A spacious and well-stocked library encouraging reading habits among students.",
+  },
+  {
+    id: 6,
+    category: "Events",
+    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=90",
+    title: "Graduation Ceremony",
+    description:
+      "A proud moment celebrating academic achievements of our graduating students.",
+  },
+  {
+    id: 7,
+    category: "Student Life",
+    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=90",
+    title: "Group Project",
+    description:
+      "Students working together on innovative academic projects.",
+  },
+  {
+    id: 8,
+    category: "Arts",
+    src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=90",
+    title: "Art Exhibition",
+    description:
+      "Creative artworks displayed by students showcasing imagination and talent.",
+  },
+  {
+    id: 9,
+    category: "Tech",
+    src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=90",
+    title: "Innovation Lab",
+    description:
+      "Hands-on STEM learning and innovation activities for senior classes.",
+  },
+  {
+    id: 10,
+    category: "Nature",
+    src: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=90",
+    title: "Campus Green",
+    description:
+      "A lush green campus promoting eco-awareness and a healthy environment.",
+  },
 ];
 
 const categories = [
@@ -367,7 +434,6 @@ const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedImage, setSelectedImage] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [favorites, setFavorites] = useState([]);
   const [isGridView, setIsGridView] = useState(false);
 
   /* ================= FILTER ================= */
@@ -375,6 +441,7 @@ const Gallery = () => {
   const filteredImages = galleryImages.filter((img) => {
     const matchesCategory =
       activeCategory === "All" || img.category === activeCategory;
+
     const matchesSearch =
       img.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       img.category.toLowerCase().includes(searchQuery.toLowerCase());
@@ -394,37 +461,26 @@ const Gallery = () => {
   const handleMouseMove = (e) => {
     const { left, top, width, height } =
       e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - left) / width - 0.5;
-    const y = (e.clientY - top) / height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  /* ================= FAVORITES ================= */
-
-  const toggleFavorite = (e, id) => {
-    e.stopPropagation();
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
-    );
+    mouseX.set((e.clientX - left) / width - 0.5);
+    mouseY.set((e.clientY - top) / height - 0.5);
   };
 
   /* ================= LIGHTBOX NAV ================= */
 
   const currentIndex = filteredImages.findIndex(
-    (img) => img.src === selectedImage
+    (img) => img.id === selectedImage?.id
   );
 
   const nextImage = () => {
     const next = (currentIndex + 1) % filteredImages.length;
-    setSelectedImage(filteredImages[next].src);
+    setSelectedImage(filteredImages[next]);
   };
 
   const prevImage = () => {
     const prev =
       (currentIndex - 1 + filteredImages.length) %
       filteredImages.length;
-    setSelectedImage(filteredImages[prev].src);
+    setSelectedImage(filteredImages[prev]);
   };
 
   useEffect(() => {
@@ -471,15 +527,15 @@ const Gallery = () => {
           className="relative z-20 text-center px-6 max-w-4xl"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-md mb-6 text-indigo-300 text-sm">
-            <Sparkles className="w-4 h-4" />  SCHOOL GALLERY
+            <Sparkles className="w-4 h-4" /> SCHOOL GALLERY
           </div>
 
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent">
+          <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent">
             Visual Excellence
           </h1>
 
-          <p className="text-gray-300 text-lg">
-            Experience our campus, culture and creativity.
+          <p className="text-gray-300 text-lg mt-4">
+            Experience our campus, culture, creativity and achievements.
           </p>
         </motion.div>
       </section>
@@ -489,7 +545,6 @@ const Gallery = () => {
       <div className="sticky top-0 z-30 bg-neutral-950/90 backdrop-blur-lg border-b border-white/10 p-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
 
-          {/* Search */}
           <div className="relative w-full md:w-80">
             <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
             <input
@@ -501,7 +556,6 @@ const Gallery = () => {
             />
           </div>
 
-          {/* Category */}
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
@@ -518,7 +572,6 @@ const Gallery = () => {
             ))}
           </div>
 
-          {/* View Toggle */}
           <div className="flex bg-white/5 rounded-lg p-1">
             <button
               onClick={() => setIsGridView(true)}
@@ -555,55 +608,15 @@ const Gallery = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="relative group rounded-2xl overflow-hidden cursor-pointer break-inside-avoid"
-                onClick={() => setSelectedImage(img.src)}
+                className="rounded-2xl overflow-hidden cursor-pointer break-inside-avoid"
+                onClick={() => setSelectedImage(img)}
               >
                 <img
                   src={img.src}
                   alt={img.title}
-                  className="w-full object-cover transition duration-700 group-hover:scale-110"
+                  className="w-full object-cover transition duration-700 hover:scale-105"
                   loading="lazy"
                 />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition flex flex-col justify-end p-4">
-                  <h3 className="font-bold">{img.title}</h3>
-                  <p className="text-sm text-gray-300 mb-3">
-                    {img.category}
-                  </p>
-
-                  <div className="flex gap-3">
-                    <button
-                      onClick={(e) => toggleFavorite(e, img.id)}
-                      className="p-2 bg-white/10 rounded-full"
-                    >
-                      <Heart
-                        size={16}
-                        className={
-                          favorites.includes(img.id)
-                            ? "text-red-500 fill-red-500"
-                            : ""
-                        }
-                      />
-                    </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(img.src, "_blank");
-                      }}
-                      className="p-2 bg-white/10 rounded-full"
-                    >
-                      <Download size={16} />
-                    </button>
-
-                    <button
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-2 bg-white/10 rounded-full"
-                    >
-                      <Share2 size={16} />
-                    </button>
-                  </div>
-                </div>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -633,9 +646,9 @@ const Gallery = () => {
               </button>
 
               <img
-                src={selectedImage}
-                alt="Preview"
-                className="rounded-2xl w-full max-h-[80vh] object-contain"
+                src={selectedImage.src}
+                alt={selectedImage.title}
+                className="rounded-2xl w-full max-h-[75vh] object-contain"
               />
 
               <button
@@ -652,13 +665,16 @@ const Gallery = () => {
                 <ChevronRight size={28} />
               </button>
 
-              <div className="mt-4 flex justify-between text-gray-400">
-                <span>
-                  {filteredImages[currentIndex]?.title}
-                </span>
-                <span>
+              <div className="mt-6 text-center">
+                <h2 className="text-2xl font-bold mb-2">
+                  {selectedImage.title}
+                </h2>
+                <p className="text-gray-400 max-w-3xl mx-auto">
+                  {selectedImage.description}
+                </p>
+                <p className="text-sm text-gray-500 mt-2">
                   {currentIndex + 1} / {filteredImages.length}
-                </span>
+                </p>
               </div>
             </motion.div>
           </motion.div>
