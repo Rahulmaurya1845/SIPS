@@ -199,8 +199,11 @@
 
 
 
+
+
 // import React, { useState } from "react";
 // import emailjs from "@emailjs/browser";
+// import toast from "react-hot-toast";
 // import {
 //   Phone,
 //   Mail,
@@ -213,6 +216,8 @@
 // } from "lucide-react";
 
 // const ContactSection = () => {
+//   const [loading, setLoading] = useState(false);
+
 //   const [formData, setFormData] = useState({
 //     name: "",
 //     email: "",
@@ -221,44 +226,80 @@
 //     message: "",
 //   });
 
+//   const [errors, setErrors] = useState({});
+
 //   const handleChange = (e) => {
 //     setFormData({
 //       ...formData,
 //       [e.target.name]: e.target.value,
 //     });
+
+//     setErrors({
+//       ...errors,
+//       [e.target.name]: "",
+//     });
+//   };
+
+//   const validateForm = () => {
+//     let newErrors = {};
+
+//     if (!formData.name.trim())
+//       newErrors.name = "Name is required";
+
+//     if (!formData.email.trim())
+//       newErrors.email = "Email is required";
+//     else if (!/\S+@\S+\.\S+/.test(formData.email))
+//       newErrors.email = "Invalid email format";
+
+//     if (!formData.mobile.trim())
+//       newErrors.mobile = "Mobile number is required";
+//     else if (!/^[0-9]{10}$/.test(formData.mobile))
+//       newErrors.mobile = "Mobile must be 10 digits";
+
+//     if (!formData.message.trim())
+//       newErrors.message = "Message cannot be empty";
+
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0;
 //   };
 
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
 
+//     if (!validateForm()) return;
+
+//     setLoading(true);
+
 //     emailjs
 //       .send(
-//         "service_vctqckf",
-//         "template_juud5io",
+//         import.meta.env.VITE_SERVICE_ID,
+//         import.meta.env.VITE_TEMPLATE_ID,
 //         formData,
-//         "RZePIUrB2xMzi6IyN"
+//         import.meta.env.VITE_PUBLIC_KEY
 //       )
-//       .then(
-//         () => {
-//           alert("Message Sent Successfully ✅");
-//           setFormData({
-//             name: "",
-//             email: "",
-//             mobile: "",
-//             address: "",
-//             message: "",
-//           });
-//         },
-//         (error) => {
-//           alert("Failed to send ❌");
-//           console.log(error);
-//         }
-//       );
+//       .then(() => {
+//         toast.success("Message Sent Successfully ✅");
+
+//         setFormData({
+//           name: "",
+//           email: "",
+//           mobile: "",
+//           address: "",
+//           message: "",
+//         });
+
+//         setLoading(false);
+//       })
+//       .catch((error) => {
+//         toast.error("Failed to send message ❌");
+//         console.log(error);
+//         setLoading(false);
+//       });
 //   };
 
 //   return (
 //     <section className="py-20 md:py-24 bg-gradient-to-b from-[#1e293b] to-[#0f172a] text-gray-300 relative overflow-hidden">
-      
+
 //       {/* Background Effects */}
 //       <div className="absolute inset-0 opacity-10">
 //         <div className="absolute top-10 left-10 w-32 h-32 bg-orange-500 rounded-full blur-3xl animate-pulse"></div>
@@ -267,7 +308,6 @@
 
 //       <div className="max-w-7xl mx-auto px-4 relative z-10">
 
-//         {/* Heading */}
 //         <h1 className="text-4xl md:text-6xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 mb-6">
 //           Contact Us
 //         </h1>
@@ -279,7 +319,7 @@
 
 //         <div className="grid lg:grid-cols-2 gap-12 md:gap-16">
 
-//           {/* LEFT SIDE CARDS */}
+//           {/* LEFT SIDE CARDS (UNCHANGED DESIGN) */}
 //           <div className="grid sm:grid-cols-2 gap-8 md:gap-10">
 
 //             {/* Phone */}
@@ -319,52 +359,33 @@
 
 //             {/* Social */}
 //             <div className="group bg-gray-800/80 p-8 md:p-10 rounded-3xl shadow-lg transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:bg-gradient-to-br hover:from-yellow-400 hover:to-yellow-500 hover:text-white flex flex-col justify-center items-center text-center">
-              
 //               <div className="w-16 md:w-20 h-16 md:h-20 flex items-center justify-center bg-gradient-to-br from-yellow-100 to-yellow-200 text-yellow-600 rounded-full mb-6 transition-all duration-300 group-hover:bg-white group-hover:scale-110">
 //                 <Share2 size={28} />
 //               </div>
 
 //               <div className="flex justify-center space-x-4">
-//                 <a
-//                   href="https://facebook.com"
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                   className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-blue-600 hover:text-white"
-//                 >
+//                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-blue-600 hover:text-white">
 //                   <Facebook size={18} />
 //                 </a>
 
-//                 <a
-//                   href="https://instagram.com"
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                   className="w-10 h-10 flex items-center justify-center bg-pink-100 text-pink-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-pink-600 hover:text-white"
-//                 >
+//                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-pink-100 text-pink-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-pink-600 hover:text-white">
 //                   <Instagram size={18} />
 //                 </a>
 
-//                 <a
-//                   href="https://youtube.com"
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                   className="w-10 h-10 flex items-center justify-center bg-red-100 text-red-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-red-600 hover:text-white"
-//                 >
+//                 <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-red-100 text-red-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-red-600 hover:text-white">
 //                   <Youtube size={18} />
 //                 </a>
 
-//                 <a
-//                   href="https://twitter.com"
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                   className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-400 rounded-full transition-all duration-300 hover:scale-125 hover:bg-blue-400 hover:text-white"
-//                 >
+//                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-400 rounded-full transition-all duration-300 hover:scale-125 hover:bg-blue-400 hover:text-white">
 //                   <Twitter size={18} />
 //                 </a>
 //               </div>
 //             </div>
 //           </div>
 
-//           {/* RIGHT SIDE FORM */}
+//           {/* RIGHT SIDE FORM (Design Same + Upgraded Functionality) */}
+//           {/* FORM CODE SAME AS BEFORE WITH SPINNER + ERRORS */}
+          
 //           <div className="bg-gray-800/80 p-8 md:p-12 rounded-3xl shadow-2xl border border-gray-700">
 //             <h3 className="text-2xl md:text-3xl font-semibold mb-8 text-white">
 //               Send Us a Message
@@ -373,67 +394,45 @@
 //             <form onSubmit={handleSubmit} className="space-y-6">
 
 //               <div className="grid sm:grid-cols-2 gap-6">
-//                 <input
-//                   type="text"
-//                   name="name"
-//                   required
-//                   value={formData.name}
-//                   onChange={handleChange}
-//                   placeholder="Enter Your Name"
-//                   className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white"
-//                 />
+//                 <div>
+//                   <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter Your Name" className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white" />
+//                   {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+//                 </div>
 
-//                 <input
-//                   type="email"
-//                   name="email"
-//                   required
-//                   value={formData.email}
-//                   onChange={handleChange}
-//                   placeholder="Enter Your Email"
-//                   className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white"
-//                 />
+//                 <div>
+//                   <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Your Email" className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white" />
+//                   {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+//                 </div>
 //               </div>
 
 //               <div className="grid sm:grid-cols-2 gap-6">
-//                 <input
-//                   type="tel"
-//                   name="mobile"
-//                   required
-//                   pattern="[0-9]{10}"
-//                   value={formData.mobile}
-//                   onChange={handleChange}
-//                   placeholder="Enter Your Mobile"
-//                   className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white"
-//                 />
+//                 <div>
+//                   <input type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Enter Your Mobile" className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white" />
+//                   {errors.mobile && <p className="text-red-400 text-sm mt-1">{errors.mobile}</p>}
+//                 </div>
 
-//                 <input
-//                   type="text"
-//                   name="address"
-//                   value={formData.address}
-//                   onChange={handleChange}
-//                   placeholder="Enter Your Address"
-//                   className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white"
-//                 />
+//                 <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Enter Your Address" className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white" />
 //               </div>
 
-//               <textarea
-//                 name="message"
-//                 rows="5"
-//                 required
-//                 value={formData.message}
-//                 onChange={handleChange}
-//                 placeholder="Enter Your Message"
-//                 className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white resize-none"
-//               />
+//               <div>
+//                 <textarea name="message" rows="5" value={formData.message} onChange={handleChange} placeholder="Enter Your Message" className="w-full p-4 border-2 border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-400 bg-gray-700 text-white resize-none" />
+//                 {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
+//               </div>
 
-//               <button
-//                 type="submit"
-//                 className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
-//               >
-//                 Submit Now →
+//               <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 flex justify-center items-center gap-2">
+//                 {loading ? (
+//                   <>
+//                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+//                     Sending...
+//                   </>
+//                 ) : (
+//                   "Submit Now →"
+//                 )}
 //               </button>
+
 //             </form>
 //           </div>
+
 //         </div>
 //       </div>
 //     </section>
@@ -444,9 +443,7 @@
 
 
 
-
 import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 import {
   Phone,
@@ -507,21 +504,26 @@ const ContactSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  // ✅ BACKEND INTEGRATION (ONLY THIS PART CHANGED)
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     setLoading(true);
 
-    emailjs
-      .send(
-        import.meta.env.VITE_SERVICE_ID,
-        import.meta.env.VITE_TEMPLATE_ID,
-        formData,
-        import.meta.env.VITE_PUBLIC_KEY
-      )
-      .then(() => {
+    try {
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
         toast.success("Message Sent Successfully ✅");
 
         setFormData({
@@ -531,14 +533,15 @@ const ContactSection = () => {
           address: "",
           message: "",
         });
+      } else {
+        toast.error(data.message || "Failed to send message ❌");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Server Error ❌");
+    }
 
-        setLoading(false);
-      })
-      .catch((error) => {
-        toast.error("Failed to send message ❌");
-        console.log(error);
-        setLoading(false);
-      });
+    setLoading(false);
   };
 
   return (
@@ -563,7 +566,7 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 md:gap-16">
 
-          {/* LEFT SIDE CARDS (UNCHANGED DESIGN) */}
+          {/* LEFT SIDE CARDS — SAME DESIGN */}
           <div className="grid sm:grid-cols-2 gap-8 md:gap-10">
 
             {/* Phone */}
@@ -611,25 +614,21 @@ const ContactSection = () => {
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-blue-600 hover:text-white">
                   <Facebook size={18} />
                 </a>
-
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-pink-100 text-pink-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-pink-600 hover:text-white">
                   <Instagram size={18} />
                 </a>
-
                 <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-red-100 text-red-600 rounded-full transition-all duration-300 hover:scale-125 hover:bg-red-600 hover:text-white">
                   <Youtube size={18} />
                 </a>
-
                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-400 rounded-full transition-all duration-300 hover:scale-125 hover:bg-blue-400 hover:text-white">
                   <Twitter size={18} />
                 </a>
               </div>
             </div>
+
           </div>
 
-          {/* RIGHT SIDE FORM (Design Same + Upgraded Functionality) */}
-          {/* FORM CODE SAME AS BEFORE WITH SPINNER + ERRORS */}
-          
+          {/* RIGHT SIDE FORM — SAME DESIGN */}
           <div className="bg-gray-800/80 p-8 md:p-12 rounded-3xl shadow-2xl border border-gray-700">
             <h3 className="text-2xl md:text-3xl font-semibold mb-8 text-white">
               Send Us a Message
