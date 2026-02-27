@@ -313,6 +313,9 @@
 // };
 
 // export default Gallery;
+
+
+
 import React, { useState, useEffect } from "react";
 import {
   motion,
@@ -686,3 +689,4 @@ const Gallery = () => {
 };
 
 export default Gallery;
+

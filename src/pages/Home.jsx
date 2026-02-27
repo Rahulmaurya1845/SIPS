@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Facilities from "../components/Facilities/Facilities";
 import AboutSection from "../components/AboutSection/AboutSection";
+import CampusShowcase from "../components/homes/CampusShowcase";
+import SmartSchoolApp from "../components/school/SmartSchoolApp";
+
 import { useNavigate } from "react-router-dom";
 import {
   Sparkles,
@@ -147,104 +150,8 @@ const Home = () => {
       </section>
        <AboutSection />
 
-{/* ================= SMART SCHOOL APP ================= */}
-{/* ================= SMART SCHOOL APP ================= */}
-<section
-  ref={sectionRef}
-  className="relative py-16 md:py-20 bg-emerald-950 overflow-hidden"
->
 
-  {/* Soft Glow Background */}
-  <div className="absolute top-0 left-0 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl"></div>
-  <div className="absolute bottom-0 right-0 w-72 h-72 bg-teal-400/20 rounded-full blur-3xl"></div>
-
-  {/* Floating Sparkles */}
-  <Sparkles
-    size={26}
-    className="absolute top-10 left-1/4 text-emerald-300 animate-bounce drop-shadow-[0_0_15px_#6ee7b7]"
-  />
-  <Sparkles
-    size={20}
-    className="absolute bottom-16 right-1/4 text-teal-300 animate-pulse drop-shadow-[0_0_20px_#2dd4bf]"
-  />
-
-  <div className="relative max-w-7xl mx-auto px-6 text-center text-white">
-
-    {/* Heading */}
-    <div
-      className={`transition-all duration-1000 ${
-        showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
-    >
-      <div className="flex items-center justify-center gap-3 mb-4">
-        <Sparkles
-          className="text-emerald-300 animate-pulse drop-shadow-[0_0_20px_#6ee7b7]"
-          size={30}
-        />
-        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent">
-          Smart School App
-        </h2>
-        <Sparkles
-          className="text-teal-300 animate-bounce drop-shadow-[0_0_20px_#2dd4bf]"
-          size={30}
-        />
-      </div>
-
-      <p className="text-emerald-200 max-w-2xl mx-auto mb-12 text-sm md:text-base">
-        Seamless communication and real-time updates that keep parents connected
-        with their child’s academic journey.
-      </p>
-    </div>
-
-    {/* Cards */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-      {[
-        {
-          icon: <CalendarCheck size={26} />,
-          title: "Daily Attendance",
-          desc: "Real-time attendance alerts.",
-        },
-        {
-          icon: <FileText size={26} />,
-          title: "Homework & Results",
-          desc: "Assignments & performance reports.",
-        },
-        {
-          icon: <Bell size={26} />,
-          title: "Instant Updates",
-          desc: "School notifications anytime.",
-        },
-        {
-          icon: <MessageSquare size={26} />,
-          title: "Direct Messaging",
-          desc: "Secure parent-teacher chat.",
-        },
-      ].map((card, index) => (
-        <div
-          key={index}
-          style={{ transitionDelay: `${index * 200}ms` }}
-          className={`group bg-white/5 backdrop-blur-lg p-6 rounded-xl border border-white/10 
-          transition-all duration-700 transform
-          hover:-translate-y-3 hover:bg-white/10
-          ${
-            showContent
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-14"
-          }`}
-        >
-          <div className="w-14 h-14 mx-auto flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 mb-4 text-black group-hover:scale-110 transition duration-500">
-            {card.icon}
-          </div>
-
-          <h3 className="text-base font-semibold mb-2">{card.title}</h3>
-          <p className="text-emerald-200 text-xs md:text-sm">{card.desc}</p>
-        </div>
-      ))}
-
-    </div>
-  </div>
-</section>
+    <SmartSchoolApp />
 
       <Facilities />
      
@@ -341,6 +248,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <CampusShowcase />
     </>
   );
 };
