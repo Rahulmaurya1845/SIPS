@@ -1,7 +1,8 @@
-import React from "react";
-import { GraduationCap, Target, Users, Award, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { GraduationCap, Target, Users, Award, Sparkles, ArrowUpRight } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
+// --- DATA ---
 const values = [
   {
     id: 1,
@@ -33,132 +34,171 @@ const values = [
   },
 ];
 
+// --- THEME CONFIGURATION ---
 const colorMap = {
   blue: {
-    bgLight: "bg-blue-100",
-    bgMain: "bg-blue-500",
-    gradientFrom: "from-blue-600",
-    gradientTo: "to-cyan-500",
-    gradientBg: "bg-gradient-to-br from-blue-600 to-cyan-500",
-    shadow: "hover:shadow-blue-500/30",
+    gradientText: "from-blue-600 to-cyan-500",
+    gradientBg: "from-blue-600 to-cyan-500",
+    bgGlow: "bg-blue-500/20",
+    border: "group-hover:border-blue-500/50",
+    shadow: "group-hover:shadow-blue-500/20",
+    iconColor: "text-blue-600",
   },
   rose: {
-    bgLight: "bg-rose-100",
-    bgMain: "bg-rose-500",
-    gradientFrom: "from-rose-600",
-    gradientTo: "to-pink-500",
-    gradientBg: "bg-gradient-to-br from-rose-600 to-pink-500",
-    shadow: "hover:shadow-rose-500/30",
+    gradientText: "from-rose-600 to-pink-500",
+    gradientBg: "from-rose-600 to-pink-500",
+    bgGlow: "bg-rose-500/20",
+    border: "group-hover:border-rose-500/50",
+    shadow: "group-hover:shadow-rose-500/20",
+    iconColor: "text-rose-600",
   },
   amber: {
-    bgLight: "bg-amber-100",
-    bgMain: "bg-amber-500",
-    gradientFrom: "from-amber-500",
-    gradientTo: "to-orange-500",
-    gradientBg: "bg-gradient-to-br from-amber-500 to-orange-500",
-    shadow: "hover:shadow-amber-500/30",
+    gradientText: "from-amber-500 to-orange-500",
+    gradientBg: "from-amber-500 to-orange-500",
+    bgGlow: "bg-amber-500/20",
+    border: "group-hover:border-amber-500/50",
+    shadow: "group-hover:shadow-amber-500/20",
+    iconColor: "text-amber-600",
   },
   violet: {
-    bgLight: "bg-violet-100",
-    bgMain: "bg-violet-500",
-    gradientFrom: "from-violet-600",
-    gradientTo: "to-purple-500",
-    gradientBg: "bg-gradient-to-br from-violet-600 to-purple-500",
-    shadow: "hover:shadow-violet-500/30",
+    gradientText: "from-violet-600 to-purple-500",
+    gradientBg: "from-violet-600 to-purple-500",
+    bgGlow: "bg-violet-500/20",
+    border: "group-hover:border-violet-500/50",
+    shadow: "group-hover:shadow-violet-500/20",
+    iconColor: "text-violet-600",
   },
 };
 
-const FloatingDots = ({ theme }) => {
-  const colors = colorMap[theme];
+// --- PREMIUM SVG COMPONENTS ---
+
+const BackgroundGrid = () => (
+  <div className="absolute inset-0 z-0 opacity-[0.4] pointer-events-none">
+    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-slate-300"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  </div>
+);
+
+const FloatingBlob = ({ className, color }) => (
+  <motion.div 
+    animate={{ 
+      scale: [1, 1.1, 1], 
+      rotate: [0, 90, 0],
+      opacity: [0.3, 0.5, 0.3] 
+    }}
+    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+    className={`absolute rounded-full blur-[100px] pointer-events-none z-0 ${className}`}
+    style={{ background: color }}
+  />
+);
+
+// --- 3D TILT CARD COMPONENT ---
+
+const TiltCard = ({ children, theme }) => {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-      {[...Array(8)].map((_, i) => (
-        <motion.div
-          key={i}
-          className={`absolute w-2 h-2 rounded-full opacity-40 ${colors.bgMain}`}
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-            opacity: [0.2, 0.6, 0.2],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: Math.random() * 2,
-          }}
-        />
-      ))}
-    </div>
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      className="relative h-full"
+    >
+      <div style={{ transform: "translateZ(50px)" }} className="h-full">
+        {children}
+      </div>
+      {/* Shine Effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl" style={{ transform: "translateZ(75px)" }} />
+    </motion.div>
   );
 };
 
+// --- MAIN COMPONENT ---
+
 const CoreValues = () => {
   return (
-    <section className="py-28 bg-slate-50 relative overflow-hidden font-sans">
+    <section className="py-32 bg-slate-50 relative overflow-hidden font-sans selection:bg-indigo-100">
+      
+      {/* --- AMBIENT BACKGROUND --- */}
+      <BackgroundGrid />
+      <FloatingBlob className="top-0 left-0 w-[500px] h-[500px]" color="rgba(99, 102, 241, 0.15)" />
+      <FloatingBlob className="bottom-0 right-0 w-[600px] h-[600px]" color="rgba(244, 63, 94, 0.1)" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white rounded-full blur-[120px] opacity-60 pointer-events-none" />
 
-      {/* Soft Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 rounded-full blur-[140px] opacity-30"></div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 80 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.3 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-
-        {/* ===== PREMIUM TEXT SECTION (ONLY THIS CHANGED) ===== */}
-        <div className="text-center mb-20 max-w-3xl mx-auto">
-
-          {/* Badge */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        
+        {/* --- HEADER SECTION --- */}
+        <div className="text-center mb-24 max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ amount: 0.5 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/70 backdrop-blur-md border border-white shadow-md mb-8"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-8 backdrop-blur-sm"
           >
-            <Sparkles size={16} className="text-amber-500" />
-            <span className="text-xs tracking-widest font-semibold text-slate-600 uppercase">
+            <Sparkles size={16} className="text-amber-500 animate-pulse" />
+            <span className="text-xs font-bold tracking-widest text-slate-500 uppercase">
               Our Foundation
             </span>
           </motion.div>
 
-          {/* Heading */}
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: 0.5 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight"
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-8"
           >
-            <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
-              Core Values
-            </span>
+            Core <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Values</span>
           </motion.h2>
 
-          {/* Animated Divider */}
           <motion.div
             initial={{ width: 0 }}
-            whileInView={{ width: "100px" }}
-            viewport={{ amount: 0.5 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="h-1 mx-auto my-8 rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
+            whileInView={{ width: "120px" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="h-1.5 mx-auto mb-8 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
           />
 
-          {/* Description */}
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ amount: 0.5 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg sm:text-xl text-slate-600 leading-relaxed"
+            className="text-lg sm:text-xl text-slate-600 leading-relaxed font-light"
           >
             We don't just teach — we nurture character and ambition.  
             Our philosophy is built upon four powerful pillars that guide
@@ -166,8 +206,8 @@ const CoreValues = () => {
           </motion.p>
         </div>
 
-        {/* ===== CARDS (UNCHANGED) ===== */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {/* --- CARDS GRID --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 perspective-1000">
           {values.map((value, index) => {
             const colors = colorMap[value.theme];
             const Icon = value.icon;
@@ -175,53 +215,87 @@ const CoreValues = () => {
             return (
               <motion.div
                 key={value.id}
-                initial={{ opacity: 0, y: 60 }}
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ amount: 0.3 }}
-                transition={{
-                  duration: 0.7,
-                  delay: index * 0.15,
-                  ease: "easeOut",
-                }}
-                className={`group relative bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 h-full flex flex-col ${colors.shadow}`}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7, delay: index * 0.1 }}
+                className="group h-full"
               >
-                <FloatingDots theme={value.theme} />
+                <TiltCard theme={value.theme}>
+                  <div className={`relative h-full bg-white/60 backdrop-blur-xl border border-white/50 rounded-3xl p-8 shadow-xl shadow-slate-200/50 transition-all duration-500 ${colors.border} ${colors.shadow} overflow-hidden flex flex-col`}>
+                    
+                    {/* Background Glow on Hover */}
+                    <div className={`absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[60px] transition-opacity duration-500 opacity-0 group-hover:opacity-100 ${colors.bgGlow}`} />
 
-                <div className="relative z-10 flex flex-col h-full text-center">
-                  <div className="relative inline-block mx-auto mb-6 mt-2">
-                    <div className={`absolute inset-0 ${colors.bgLight} opacity-50 blur-xl rounded-full`}></div>
-
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-slate-50 flex items-center justify-center shadow-inner border border-slate-100 group-hover:border-transparent transition-all duration-500 overflow-hidden">
-                      <Icon
-                        className="text-slate-700 transition-all duration-500 group-hover:text-white relative z-10"
-                        size={28}
-                      />
-                      <div
-                        className={`absolute inset-0 ${colors.gradientBg} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                      ></div>
+                    {/* Card Number */}
+                    <div className="absolute top-6 right-6 text-6xl font-bold text-slate-100/50 select-none transition-colors group-hover:text-slate-200">
+                      0{index + 1}
                     </div>
+
+                    {/* Icon Container */}
+                    <div className="relative mb-8">
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br ${colors.gradientBg} shadow-lg shadow-slate-300/50 group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}>
+                        <Icon className="text-white w-8 h-8" strokeWidth={1.5} />
+                      </div>
+                      {/* Decorative line */}
+                      <div className={`absolute top-1/2 left-16 w-0 h-[2px] bg-gradient-to-r ${colors.gradientBg} group-hover:w-12 transition-all duration-500 delay-100`} />
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="text-2xl font-bold text-slate-800 mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:${colors.gradientText} transition-all duration-300">
+                      {value.title}
+                    </h3>
+                    
+                    <p className="text-slate-500 leading-relaxed mb-8 flex-grow text-sm sm:text-base">
+                      {value.desc}
+                    </p>
+
+                    {/* Footer / Action */}
+                    <div className="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
+                      <div className={`h-1.5 flex-grow rounded-full bg-slate-100 overflow-hidden mr-4`}>
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          whileInView={{ width: "100%" }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.5, delay: 0.5 + (index * 0.2) }}
+                          className={`h-full bg-gradient-to-r ${colors.gradientBg}`}
+                        />
+                      </div>
+                      <div className="p-2 rounded-full bg-slate-50 text-slate-400 group-hover:bg-slate-900 group-hover:text-white transition-all duration-300 cursor-pointer">
+                        <ArrowUpRight size={18} />
+                      </div>
+                    </div>
+
                   </div>
-
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-3">
-                    {value.title}
-                  </h3>
-
-                  <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
-                    {value.desc}
-                  </p>
-
-                  <div className="mt-auto pt-4 border-t border-slate-50 flex justify-center items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
-                    <div className={`h-2 w-2 rounded-full ${colors.bgMain} shadow-md`}></div>
-                    <div className={`h-0.5 w-8 rounded-full bg-gradient-to-r ${colors.gradientFrom} ${colors.gradientTo} opacity-50`}></div>
-                    <div className={`h-2 w-2 rounded-full ${colors.bgMain} shadow-md`}></div>
-                  </div>
-                </div>
+                </TiltCard>
               </motion.div>
             );
           })}
         </div>
 
-      </motion.div>
+        {/* --- BOTTOM DECORATION --- */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8 }}
+          className="mt-24 flex justify-center"
+        >
+          <div className="flex items-center gap-4 px-8 py-4 rounded-full bg-white border border-slate-200 shadow-lg shadow-slate-200/50">
+            <div className="flex -space-x-3">
+              {[1,2,3,4].map((i) => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
+                   <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+            <div className="text-sm font-medium text-slate-600">
+              Join <span className="text-slate-900 font-bold">10,000+</span> Students
+            </div>
+          </div>
+        </motion.div>
+
+      </div>
     </section>
   );
 };

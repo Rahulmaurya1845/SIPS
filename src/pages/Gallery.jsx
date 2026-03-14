@@ -1,692 +1,851 @@
-// import React, { useState } from "react";
-// import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-// import { X, Heart, Star, Zap, Filter, ImageIcon, Camera, Sparkles, Trophy } from "lucide-react";
-
-// const galleryImages = [
-//   {
-//     id: 1,
-//     category: "Campus",
-//     src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 2,
-//     category: "Events",
-//     src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 3,
-//     category: "Sports",
-//     src: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 4,
-//     category: "Activities",
-//     src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 5,
-//     category: "Campus",
-//     src: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 6,
-//     category: "Events",
-//     src: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 7,
-//     category: "Sports",
-//     src: "https://images.unsplash.com/photo-1508606572321-901ea443707f?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 8,
-//     category: "Activities",
-//     src: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80",
-//   },
-//   // Added more images for a fuller gallery
-//   // {
-//   //   id: 9,
-//   //   category: "Campus",
-//   //   src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
-//   // },
-//   {
-//     id: 10,
-//     category: "Events",
-//     src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 11,
-//     category: "Sports",
-//     src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
-//   },
-//   {
-//     id: 12,
-//     category: "Activities",
-//     src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",
-//   },
-// ];
-
-// const categories = ["All", "Campus", "Events", "Sports", "Activities"];
-
-// const Gallery = () => {
-//   const [activeCategory, setActiveCategory] = useState("All");
-//   const [selectedImage, setSelectedImage] = useState(null);
-
-//   const filteredImages =
-//     activeCategory === "All"
-//       ? galleryImages
-//       : galleryImages.filter((img) => img.category === activeCategory);
-
-//   // Scroll-based zoom effect for hero
-//   const { scrollY } = useScroll();
-//   const zoom = useTransform(scrollY, [0, 500], [1, 1.2]); // Zoom in on scroll
-
-//   // Animation variants
-//   const fadeInUp = {
-//     initial: { opacity: 0, y: 50 },
-//     animate: { opacity: 1, y: 0 },
-//     transition: { duration: 0.8, ease: "easeOut" },
-//   };
-
-//   const staggerContainer = {
-//     animate: {
-//       transition: {
-//         staggerChildren: 0.1,
-//       },
-//     },
-//   };
-
-//   const scaleOnHover = {
-//     whileHover: { scale: 1.05 },
-//     whileTap: { scale: 0.95 },
-//   };
-
-//   return (
-//     <div className="bg-gray-50 overflow-hidden">
-//       {/* ================= ENHANCED HERO ================= */}
-//       <section className="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
-//         {/* Parallax background with zoom */}
-//         <motion.div
-//           style={{ scale: zoom }}
-//           className="absolute inset-0"
-//         >
-//           <img
-//             src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1600&q=80" // Changed to a different, reliable school/library image that loads well
-//             className="w-full h-full object-cover"
-//             alt="Gallery Hero"
-//           />
-//         </motion.div>
-//         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-purple-900/60 to-indigo-900/80"></div>
-
-//         {/* Animated particles for premium feel */}
-//         <div className="absolute inset-0">
-//           {[...Array(25)].map((_, i) => (
-//             <motion.div
-//               key={i}
-//               className="absolute w-2 h-2 bg-yellow-400/30 rounded-full"
-//               initial={{
-//                 x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
-//                 y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-//                 opacity: 0,
-//               }}
-//               animate={{
-//                 y: [0, -150, 0],
-//                 opacity: [0, 1, 0],
-//                 scale: [0.5, 1, 0.5],
-//               }}
-//               transition={{
-//                 duration: Math.random() * 4 + 3,
-//                 repeat: Infinity,
-//                 delay: Math.random() * 3,
-//               }}
-//             />
-//           ))}
-//         </div>
-
-//         <motion.div
-//           variants={fadeInUp}
-//           initial="initial"
-//           animate="animate"
-//           className="relative text-center text-white px-6 max-w-4xl z-10"
-//         >
-//           <motion.div
-//             initial={{ scale: 0, rotate: -180 }}
-//             animate={{ scale: 1, rotate: 0 }}
-//             transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-//             className="mb-6"
-//           >
-//             <Camera className="w-16 h-16 mx-auto text-yellow-400 mb-4" />
-//           </motion.div>
-//           <motion.h1
-//             variants={fadeInUp}
-//             className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent drop-shadow-2xl"
-//           >
-//             Our School Gallery
-//           </motion.h1>
-//           <motion.p
-//             variants={fadeInUp}
-//             className="text-lg md:text-xl text-gray-200 leading-relaxed mb-8 drop-shadow-lg"
-//           >
-//             Capturing beautiful memories, achievements, and vibrant school life in stunning visuals.
-//           </motion.p>
-//           <motion.button
-//             variants={fadeInUp}
-//             {...scaleOnHover}
-//             className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-slate-900 px-8 py-4 rounded-full font-bold shadow-2xl transition-all duration-300 flex items-center gap-2 mx-auto"
-//           >
-//             Explore Gallery <Sparkles className="w-5 h-5" />
-//           </motion.button>
-//         </motion.div>
-//       </section>
-
-//       {/* ================= FILTER BUTTONS ================= */}
-//       <section className="py-12 px-6 text-center bg-white">
-//         <motion.div
-//           variants={staggerContainer}
-//           initial="initial"
-//           whileInView="animate"
-//           viewport={{ once: true }}
-//           className="flex flex-wrap justify-center gap-4"
-//         >
-//           {categories.map((category, index) => (
-//             <motion.button
-//               key={category}
-//               variants={fadeInUp}
-//               whileHover={{ scale: 1.1, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
-//               whileTap={{ scale: 0.95 }}
-//               onClick={() => setActiveCategory(category)}
-//               className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-//                 activeCategory === category
-//                   ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg"
-//                   : "bg-gray-100 text-gray-700 shadow hover:bg-gray-200"
-//               }`}
-//             >
-//               {category}
-//             </motion.button>
-//           ))}
-//         </motion.div>
-//       </section>
-
-//       {/* ================= GALLERY GRID ================= */}
-//       <section className="px-6 pb-20 max-w-7xl mx-auto">
-//         <motion.div
-//           layout
-//           variants={staggerContainer}
-//           initial="initial"
-//           whileInView="animate"
-//           viewport={{ once: true }}
-//           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-//         >
-//           <AnimatePresence>
-//             {filteredImages.map((img) => (
-//               <motion.div
-//                 key={img.id}
-//                 layout
-//                 variants={fadeInUp}
-//                 initial={{ opacity: 0, scale: 0.8 }}
-//                 animate={{ opacity: 1, scale: 1 }}
-//                 exit={{ opacity: 0, scale: 0.8 }}
-//                 transition={{ duration: 0.4 }}
-//                 whileHover={{ scale: 1.05, rotate: 2 }}
-//                 className="relative cursor-pointer overflow-hidden rounded-3xl shadow-lg group"
-//                 onClick={() => setSelectedImage(img.src)}
-//               >
-//                 <img
-//                   src={img.src}
-//                   alt={img.category}
-//                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-//                 />
-
-//                 {/* Enhanced Overlay */}
-//                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end justify-center pb-6">
-//                   <motion.span
-//                     initial={{ y: 20, opacity: 0 }}
-//                     whileHover={{ y: 0, opacity: 1 }}
-//                     className="text-white text-lg font-semibold bg-black/50 px-4 py-2 rounded-full"
-//                   >
-//                     {img.category}
-//                   </motion.span>
-//                 </div>
-
-//                 {/* Floating icon on hover */}
-//                 <motion.div
-//                   className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
-//                   initial={{ scale: 0 }}
-//                   whileHover={{ scale: 1 }}
-//                 >
-//                   <Heart className="w-8 h-8 text-red-500 bg-white/80 rounded-full p-1" />
-//                 </motion.div>
-//               </motion.div>
-//             ))}
-//           </AnimatePresence>
-//         </motion.div>
-//       </section>
-
-//       {/* ================= LIGHTBOX MODAL ================= */}
-//       <AnimatePresence>
-//         {selectedImage && (
-//           <motion.div
-//             className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-6"
-//             initial={{ opacity: 0 }}
-//             animate={{ opacity: 1 }}
-//             exit={{ opacity: 0 }}
-//             onClick={() => setSelectedImage(null)}
-//           >
-//             <motion.div
-//               initial={{ scale: 0.7, rotate: -10 }}
-//               animate={{ scale: 1, rotate: 0 }}
-//               exit={{ scale: 0.7, rotate: -10 }}
-//               transition={{ duration: 0.3, type: "spring" }}
-//               className="relative max-w-5xl w-full"
-//             >
-//               <motion.button
-//                 whileHover={{ scale: 1.1 }}
-//                 whileTap={{ scale: 0.9 }}
-//                 className="absolute -top-12 right-0 text-white bg-black/50 rounded-full p-2"
-//                 onClick={() => setSelectedImage(null)}
-//               >
-//                 <X size={32} />
-//               </motion.button>
-
-//               <img
-//                 src={`${selectedImage}?auto=format&fit=crop&w=1200&q=90`}
-//                 alt="Preview"
-//                 className="rounded-3xl shadow-2xl w-full max-h-[80vh] object-contain"
-//               />
-
-//               {/* Added zoom indicator */}
-//               <motion.div
-//                 className="absolute bottom-4 left-4 text-white bg-black/50 px-4 py-2 rounded-full"
-//                 initial={{ opacity: 0 }}
-//                 animate={{ opacity: 1 }}
-//                 transition={{ delay: 0.5 }}
-//               >
-//                 <Zap className="w-4 h-4 inline mr-2" />
-//                 Click to close
-//               </motion.div>
-//             </motion.div>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </div>
-//   );
-// };
-
-// export default Gallery;
-
-
-
-import React, { useState, useEffect } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useMotionTemplate,
-} from "framer-motion";
-import {
-  X,
-  ChevronLeft,
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Play, 
+  X, 
+  ChevronLeft, 
   ChevronRight,
-  Grid,
-  Layers,
+  Clock,
+  Calendar,
+  MapPin,
+  Eye,
+  GraduationCap,
   Sparkles,
-  Search,
+  Heart,
+  Share2,
+  Bookmark,
+  Users,
+  Award,
+  Star,
+  BookOpen,
+  Trophy,
+  Mic2,
+  Palette,
+  Microscope,
+  Handshake,
+  Sun
 } from "lucide-react";
 
-/* ===================== IMAGE DATA ===================== */
+/* ================= VIDEO IMPORTS ================= */
+import vid1 from "../assets/videos/1.mp4";
+import vid2 from "../assets/videos/2.mp4";
+import vid3 from "../assets/videos/3.mp4";
+import vid4 from "../assets/videos/4.mp4";
+import vid5 from "../assets/videos/5.mp4";
+import vid6 from "../assets/videos/6.mp4";
+import vid7 from "../assets/videos/7.mp4";
+import vid8 from "../assets/videos/8.mp4";
+import vid9 from "../assets/videos/9.mp4";
+import vid10 from "../assets/videos/10.mp4";
 
-const galleryImages = [
-  {
-    id: 1,
-    category: "Architecture",
-    src: "https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1200&q=90",
-    title: "Modern Campus",
-    description:
-      "Our beautifully designed campus provides a safe and inspiring learning environment for students from Nursery to Class 12.",
+/* ================= ENHANCED VIDEO DATA WITH DETAILED CONTENT ================= */
+const videos = [
+  { 
+    id: 1, 
+    src: vid1, 
+    title: "Campus Infrastructure Tour", 
+    subtitle: "State-of-the-Art Learning Environment",
+    description: "A comprehensive visual journey through our world-class educational facilities designed to foster academic excellence and holistic development.",
+    fullDescription: "Step into the future of education with our meticulously designed campus infrastructure. This exclusive tour showcases our modern smart classrooms equipped with interactive digital boards, advanced science laboratories featuring cutting-edge equipment, a sprawling library housing over 50,000 volumes, and dedicated spaces for arts, music, and physical education. Our eco-friendly campus spans 25 acres of lush greenery, providing students with an inspiring environment that nurtures creativity and intellectual growth. The architecture seamlessly blends functionality with aesthetics, creating spaces that encourage collaboration, innovation, and peaceful contemplation.",
+    highlights: [
+      "Smart classrooms with interactive technology",
+      "Advanced science and computer laboratories",
+      "Olympic-standard sports facilities",
+      "Eco-friendly sustainable campus design",
+      "25-acre sprawling green campus"
+    ],
+    participants: "Campus Development Team",
+    duration: "03:45",
+    date: "March 15, 2024",
+    location: "Main Campus, Academic Block",
+    views: "12.5K",
+    category: "Campus Life",
+    icon: BookOpen
   },
-  {
-    id: 2,
-    category: "Student Life",
-    src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=90",
-    title: "Study Session",
-    description:
-      "Collaborative classroom learning encourages teamwork, creativity, and academic excellence.",
+  { 
+    id: 2, 
+    src: vid2, 
+    title: "Evening Study Hours", 
+    subtitle: "Dedicated Academic Pursuits",
+    description: "Witness the dedication and focus of our students during evening self-study sessions in our serene library environment.",
+    fullDescription: "Experience the quiet determination of our students during evening study hours, a cherished tradition that exemplifies our commitment to academic excellence. The video captures students engaged in deep learning, collaborative discussions, and individual research within the tranquil ambiance of our central library. Under the soft glow of reading lamps, you'll see future scholars poring over textbooks, utilizing digital resources, and seeking guidance from faculty members who remain available for consultation. This daily ritual from 4:00 PM to 6:00 PM has been instrumental in developing disciplined study habits and fostering a culture of intellectual curiosity among our student body.",
+    highlights: [
+      "Supervised study environment",
+      "Faculty consultation hours",
+      "Digital resource access",
+      "Peer learning sessions",
+      "Quiet contemplation spaces"
+    ],
+    participants: "Students of Grades 9-12",
+    duration: "02:30",
+    date: "February 28, 2024",
+    location: "Dr. Radhakrishnan Central Library",
+    views: "8.9K",
+    category: "Academic Life",
+    icon: BookOpen
   },
-  {
-    id: 3,
+  { 
+    id: 3, 
+    src: vid3, 
+    title: "Annual Sports Championship", 
+    subtitle: "Excellence in Athletics",
+    description: "Thrilling highlights from our inter-house athletic meet featuring track events, team sports, and outstanding sporting achievements.",
+    fullDescription: "Relive the adrenaline-pumping moments of our 45th Annual Sports Championship, where over 800 students competed across 35 different sporting events. The two-day extravaganza showcased remarkable athletic prowess, unwavering team spirit, and exemplary sportsmanship. From the 100-meter sprint to the marathon, from basketball finals to cricket matches, every event demonstrated the physical excellence we nurture alongside academic achievement. The video captures the electric atmosphere of the opening ceremony, the intensity of competition, the joy of victory, and the grace in defeat. Special highlights include the breaking of three school records and the spectacular closing ceremony featuring our renowned marching band.",
+    highlights: [
+      "35 sporting events across 2 days",
+      "800+ student participants",
+      "3 school records broken",
+      "Inter-house championship trophy",
+      "Marching band performance"
+    ],
+    participants: "All Houses & Grades",
+    duration: "05:20",
+    date: "January 20-21, 2024",
+    location: "Mahatma Gandhi Sports Complex",
+    views: "15.2K",
     category: "Sports",
-    src: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=90",
-    title: "Championship",
-    description:
-      "Students actively participate in inter-school championships promoting discipline and sportsmanship.",
+    icon: Trophy
   },
-  {
-    id: 4,
-    category: "Tech",
-    src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=90",
-    title: "Coding Lab",
-    description:
-      "Advanced computer labs equipped with modern systems for digital literacy and programming skills.",
+  { 
+    id: 4, 
+    src: vid4, 
+    title: "Science Fair & Exhibition", 
+    subtitle: "Young Innovators Showcase",
+    description: "Groundbreaking student projects demonstrating scientific inquiry, innovation, and experimental excellence across multiple disciplines.",
+    fullDescription: "Discover the brilliant minds of tomorrow at our Annual Science Fair, where 150 innovative projects transformed our science pavilion into a hub of creativity and discovery. Students from grades 6 through 12 presented their research on topics ranging from renewable energy solutions and artificial intelligence applications to biotechnology advances and environmental conservation strategies. The exhibition featured working prototypes, detailed research papers, and live demonstrations that left visitors amazed. Notable projects included a solar-powered irrigation system, an AI-based waste segregation unit, and a novel approach to water purification using locally available materials. The event was graced by eminent scientists from the Indian Institute of Technology who praised the exceptional quality of student research.",
+    highlights: [
+      "150 innovative student projects",
+      "Working prototypes on display",
+      "Expert evaluation by IIT scientists",
+      "Awards for top 10 innovations",
+      "Interactive science demonstrations"
+    ],
+    participants: "Grades 6-12 Science Students",
+    duration: "04:15",
+    date: "December 18, 2023",
+    location: "Sir C.V. Raman Science Pavilion",
+    views: "6.8K",
+    category: "Academics",
+    icon: Microscope
   },
-  {
-    id: 5,
-    category: "Architecture",
-    src: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=90",
-    title: "Library Hall",
-    description:
-      "A spacious and well-stocked library encouraging reading habits among students.",
+  { 
+    id: 5, 
+    src: vid5, 
+    title: "Annual Cultural Festival", 
+    subtitle: "Celebrating Artistic Excellence",
+    description: "A vibrant celebration of classical dance, music, drama, and visual arts showcasing the rich cultural heritage and creative talents of our students.",
+    fullDescription: "Immerse yourself in the magic of 'Utsav 2023,' our three-day cultural extravaganza that brought together over 500 performers in a spectacular display of artistic excellence. The festival featured classical dance recitals including Bharatanatyam, Kathak, and Odissi; soulful musical performances spanning Hindustani classical, Carnatic, and Western genres; thought-provoking theatrical productions; and stunning art exhibitions. The highlight was the grand finale featuring a collaborative performance by all houses, depicting the unity in diversity that defines our nation. Eminent artists from across the country graced the event as judges and mentors, providing invaluable feedback to our young performers. The video captures the months of preparation, the backstage excitement, and the triumphant moments on stage.",
+    highlights: [
+      "500+ performers across 3 days",
+      "Classical & contemporary performances",
+      "Eminent artist judges",
+      "Inter-house competitions",
+      "Grand collaborative finale"
+    ],
+    participants: "All Students & Houses",
+    duration: "06:10",
+    date: "November 15-17, 2023",
+    location: "Rabindranath Tagore Auditorium",
+    views: "22.1K",
+    category: "Cultural",
+    icon: Palette
   },
-  {
-    id: 6,
-    category: "Events",
-    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=90",
-    title: "Graduation Ceremony",
-    description:
-      "A proud moment celebrating academic achievements of our graduating students.",
+  { 
+    id: 6, 
+    src: vid6, 
+    title: "Graduation Ceremony 2023", 
+    subtitle: "Proud Convocation Moments",
+    description: "The solemn ceremony honoring our graduating class as they embark on new journeys equipped with knowledge, values, and cherished memories.",
+    fullDescription: "Witness the emotional and proud moments of our 38th Annual Graduation Ceremony, where 287 students from the Class of 2023 received their diplomas amidst cheers, tears, and celebrations. The ceremony, held in the presence of distinguished alumni, faculty members, and proud parents, recognized not only academic excellence but also outstanding contributions in sports, arts, and community service. The Chief Guest, a renowned educationist, delivered an inspiring address about the role of education in nation-building. The video captures the procession of graduates, the conferring of degrees, the valedictory speech by the school captain, and the emotional farewell as students lit candles symbolizing the light of knowledge they carry forward. Special awards were presented to top performers in various categories.",
+    highlights: [
+      "287 graduating students honored",
+      "Academic & extracurricular awards",
+      "Chief Guest: Dr. APJ Abdul Kalam Scholar",
+      "Valedictory address by School Captain",
+      "Candle lighting ceremony"
+    ],
+    participants: "Class of 2023 & Families",
+    duration: "08:45",
+    date: "October 28, 2023",
+    location: "Jawaharlal Nehru Memorial Hall",
+    views: "45.2K",
+    category: "Ceremony",
+    icon: GraduationCap
   },
-  {
-    id: 7,
-    category: "Student Life",
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=90",
-    title: "Group Project",
-    description:
-      "Students working together on innovative academic projects.",
+  { 
+    id: 7, 
+    src: vid7, 
+    title: "Interactive Classroom Sessions", 
+    subtitle: "Modern Pedagogy in Action",
+    description: "Dynamic teaching methodologies showcasing collaborative learning, digital integration, and student-centered educational approaches.",
+    fullDescription: "Step inside our classrooms where education transcends traditional boundaries through innovative pedagogical approaches. This video showcases our teachers employing diverse methodologies including flipped classroom models, project-based learning, collaborative problem-solving, and technology-integrated instruction. You'll witness students engaged in Socratic seminars, conducting virtual experiments through augmented reality, participating in peer teaching sessions, and developing critical thinking through case study analyses. The classrooms buzz with energy as teachers facilitate rather than dictate, encouraging questions, debates, and creative solutions. Special focus is given to our STEM initiative where interdisciplinary learning connects science, technology, engineering, and mathematics in practical, real-world contexts.",
+    highlights: [
+      "Flipped classroom methodology",
+      "AR/VR technology integration",
+      "Peer teaching programs",
+      "Socratic seminar discussions",
+      "Interdisciplinary STEM projects"
+    ],
+    participants: "Faculty & Students Grades 6-10",
+    duration: "02:50",
+    date: "September 12, 2023",
+    location: "Smart Classrooms, Academic Wing",
+    views: "5.4K",
+    category: "Academics",
+    icon: BookOpen
   },
-  {
-    id: 8,
+  { 
+    id: 8, 
+    src: vid8, 
+    title: "Student Art Exhibition", 
+    subtitle: "Creative Expressions Gallery",
+    description: "An elegant showcase of paintings, sculptures, digital art, and mixed media creations by our talented young artists.",
+    fullDescription: "Wander through the inspiring galleries of our Annual Student Art Exhibition, featuring over 300 original artworks created by students from grades 1 through 12. The exhibition spanned various mediums including oil and acrylic paintings, watercolor landscapes, charcoal sketches, clay sculptures, digital illustrations, and innovative mixed-media installations. Each piece told a unique story, reflecting the young artists' perspectives on nature, society, emotions, and imagination. The inauguration was performed by a celebrated contemporary artist who spent hours interacting with students and providing personalized feedback. The video captures the meticulous curation process, the proud moments of young artists explaining their work to visitors, and the vibrant atmosphere of the opening day that saw over 1,000 attendees appreciating the creative talents on display.",
+    highlights: [
+      "300+ original artworks displayed",
+      "Multiple mediums & techniques",
+      "Renowned artist inauguration",
+      "Student-artist interactions",
+      "Live demonstration sessions"
+    ],
+    participants: "Art Students All Grades",
+    duration: "03:15",
+    date: "August 22, 2023",
+    location: "M.F. Hussain Art Gallery",
+    views: "7.2K",
     category: "Arts",
-    src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=90",
-    title: "Art Exhibition",
-    description:
-      "Creative artworks displayed by students showcasing imagination and talent.",
+    icon: Palette
   },
-  {
-    id: 9,
-    category: "Tech",
-    src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=90",
-    title: "Innovation Lab",
-    description:
-      "Hands-on STEM learning and innovation activities for senior classes.",
+  { 
+    id: 9, 
+    src: vid9, 
+    title: "Parent-Teacher Partnership Meet", 
+    subtitle: "Collaborative Education Summit",
+    description: "Meaningful dialogues between educators and families fostering shared responsibility for holistic student development and academic success.",
+    fullDescription: "Experience the essence of our collaborative approach to education through the Parent-Teacher Partnership Meet, a comprehensive two-day event designed to strengthen the home-school connection. Over 1,200 parents engaged in one-on-one consultations with teachers, attended workshops on effective parenting strategies, participated in classroom observations, and joined panel discussions on contemporary educational challenges. The meet featured special sessions on digital wellness, emotional intelligence, career guidance, and supporting diverse learning needs. Teachers presented detailed portfolios of student progress, highlighting not just academic achievements but also growth in creativity, leadership, and social responsibility. The video documents the enthusiastic participation, the insightful exchanges, and the collective commitment to nurturing each child's unique potential.",
+    highlights: [
+      "1,200+ parent participants",
+      "Individual teacher consultations",
+      "Parenting workshops & panels",
+      "Student portfolio presentations",
+      "Career guidance sessions"
+    ],
+    participants: "All Parents & Faculty",
+    duration: "02:30",
+    date: "July 29-30, 2023",
+    location: "Multiple Venues, Campus",
+    views: "3.8K",
+    category: "Community",
+    icon: Handshake
   },
-  {
-    id: 10,
-    category: "Nature",
-    src: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=90",
-    title: "Campus Green",
-    description:
-      "A lush green campus promoting eco-awareness and a healthy environment.",
+  { 
+    id: 10, 
+    src: vid10, 
+    title: "Morning Assembly Traditions", 
+    subtitle: "Daily Inspiration & Values",
+    description: "The ceremonial beginning of each school day featuring student presentations, thought-provoking speeches, and collective affirmations of our core values.",
+    fullDescription: "Begin each day with inspiration through our Morning Assembly, a cherished tradition that has shaped the character of our students for over three decades. This video captures the solemn yet energizing atmosphere as 2,000 students gather in perfect discipline to start their day with purpose. The assembly features the school prayer, pledge recitation, thought for the day presented by students, important announcements, recognition of achievements, and special presentations on national and international days. Student council members develop leadership skills by conducting proceedings, while the school choir fills the air with melodious renditions. The video showcases special assemblies including Independence Day celebrations, Teacher's Day tributes, and the investiture ceremony, demonstrating how these daily gatherings instill values of patriotism, respect, gratitude, and community service in our students.",
+    highlights: [
+      "Daily gathering of 2,000 students",
+      "Student-led proceedings",
+      "Special day celebrations",
+      "School choir performances",
+      "Achievement recognitions"
+    ],
+    participants: "Entire School Community",
+    duration: "04:00",
+    date: "June 15, 2023",
+    location: "School Assembly Ground",
+    views: "9.6K",
+    category: "Tradition",
+    icon: Sun
   },
 ];
 
-const categories = [
-  "All",
-  "Architecture",
-  "Student Life",
-  "Sports",
-  "Tech",
-  "Events",
-  "Arts",
-  "Nature",
-];
-
-/* ===================== COMPONENT ===================== */
-
-const Gallery = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isGridView, setIsGridView] = useState(false);
-
-  /* ================= FILTER ================= */
-
-  const filteredImages = galleryImages.filter((img) => {
-    const matchesCategory =
-      activeCategory === "All" || img.category === activeCategory;
-
-    const matchesSearch =
-      img.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      img.category.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return matchesCategory && matchesSearch;
-  });
-
-  /* ================= HERO PARALLAX ================= */
-
-  const { scrollY } = useScroll();
-  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const heroScale = useTransform(scrollY, [0, 500], [1, 1.1]);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect();
-    mouseX.set((e.clientX - left) / width - 0.5);
-    mouseY.set((e.clientY - top) / height - 0.5);
-  };
-
-  /* ================= LIGHTBOX NAV ================= */
-
-  const currentIndex = filteredImages.findIndex(
-    (img) => img.id === selectedImage?.id
-  );
-
-  const nextImage = () => {
-    const next = (currentIndex + 1) % filteredImages.length;
-    setSelectedImage(filteredImages[next]);
-  };
-
-  const prevImage = () => {
-    const prev =
-      (currentIndex - 1 + filteredImages.length) %
-      filteredImages.length;
-    setSelectedImage(filteredImages[prev]);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!selectedImage) return;
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
-      if (e.key === "Escape") setSelectedImage(null);
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImage, currentIndex]);
-
-  /* ================= JSX ================= */
+/* ================= PREMIUM VIDEO CARD ================= */
+const VideoCard = ({ data, index, onClick }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const Icon = data.icon;
 
   return (
-    <div className="bg-neutral-950 min-h-screen text-white">
-
-      {/* ================= HERO ================= */}
-
-      <section
-        onMouseMove={handleMouseMove}
-        className="relative h-[85vh] flex items-center justify-center overflow-hidden"
-      >
-        <motion.div
-          style={{
-            x: useMotionTemplate`${mouseX * 40}px`,
-            y: useMotionTemplate`${mouseY * 40}px`,
-            scale: heroScale,
-          }}
-          className="absolute inset-0"
-        >
-          <div className="absolute inset-0 bg-black/70 z-10" />
-          <img
-            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=2000&q=90"
-            className="w-full h-full object-cover opacity-60"
-            alt="Hero"
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.08, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onClick(data)}
+      className="group cursor-pointer"
+    >
+      <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100/80">
+        
+        {/* Premium Thumbnail */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+          <motion.video
+            src={data.src}
+            className="w-full h-full object-cover"
+            animate={{ scale: isHovered ? 1.08 : 1 }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            muted
+            playsInline
+            preload="metadata"
           />
-        </motion.div>
-
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-20 text-center px-6 max-w-4xl"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-md mb-6 text-indigo-300 text-sm">
-            <Sparkles className="w-4 h-4" /> SCHOOL GALLERY
-          </div>
-
-          <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent">
-            Visual Excellence
-          </h1>
-
-          <p className="text-gray-300 text-lg mt-4">
-            Experience our campus, culture, creativity and achievements.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* ================= CONTROLS ================= */}
-
-      <div className="sticky top-0 z-30 bg-neutral-950/90 backdrop-blur-lg border-b border-white/10 p-4">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
-
-          <div className="relative w-full md:w-80">
-            <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search gallery..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-full bg-white/5 border border-white/10 focus:outline-none focus:border-indigo-500"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-1 rounded-full text-sm ${
-                  activeCategory === cat
-                    ? "bg-indigo-600"
-                    : "bg-white/5 hover:bg-white/10"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex bg-white/5 rounded-lg p-1">
-            <button
-              onClick={() => setIsGridView(true)}
-              className={`p-2 ${isGridView ? "bg-white/10" : ""}`}
-            >
-              <Grid size={18} />
-            </button>
-            <button
-              onClick={() => setIsGridView(false)}
-              className={`p-2 ${!isGridView ? "bg-white/10" : ""}`}
-            >
-              <Layers size={18} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ================= GALLERY ================= */}
-
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <motion.div
-          layout
-          className={
-            isGridView
-              ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-              : "columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6"
-          }
-        >
-          <AnimatePresence>
-            {filteredImages.map((img) => (
-              <motion.div
-                key={img.id}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="rounded-2xl overflow-hidden cursor-pointer break-inside-avoid"
-                onClick={() => setSelectedImage(img)}
-              >
-                <img
-                  src={img.src}
-                  alt={img.title}
-                  className="w-full object-cover transition duration-700 hover:scale-105"
-                  loading="lazy"
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </section>
-
-      {/* ================= LIGHTBOX ================= */}
-
-      <AnimatePresence>
-        {selectedImage && (
+          
+          {/* Elegant Overlay */}
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"
+            initial={{ opacity: 0.3 }}
+            animate={{ opacity: isHovered ? 0.9 : 0.4 }}
+            transition={{ duration: 0.4 }}
+          />
+          
+          {/* Premium Play Button */}
           <motion.div
-            className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-6"
+            className="absolute inset-0 flex items-center justify-center"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="relative max-w-6xl w-full"
-              onClick={(e) => e.stopPropagation()}
+              className="relative"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute -top-12 right-0 p-3 bg-white/10 rounded-full"
-              >
-                <X size={24} />
-              </button>
-
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.title}
-                className="rounded-2xl w-full max-h-[75vh] object-contain"
-              />
-
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 rounded-full"
-              >
-                <ChevronLeft size={28} />
-              </button>
-
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 rounded-full"
-              >
-                <ChevronRight size={28} />
-              </button>
-
-              <div className="mt-6 text-center">
-                <h2 className="text-2xl font-bold mb-2">
-                  {selectedImage.title}
-                </h2>
-                <p className="text-gray-400 max-w-3xl mx-auto">
-                  {selectedImage.description}
-                </p>
-                <p className="text-sm text-gray-500 mt-2">
-                  {currentIndex + 1} / {filteredImages.length}
-                </p>
+              <div className="absolute inset-0 bg-white/30 rounded-full blur-xl" />
+              <div className="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                <Play className="w-8 h-8 text-indigo-600 fill-indigo-600 ml-1" />
               </div>
             </motion.div>
           </motion.div>
+
+          {/* Top Actions */}
+          <motion.div 
+            className="absolute top-4 right-4 flex gap-2"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsLiked(!isLiked);
+              }}
+              className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+            >
+              <Heart className={`w-5 h-5 ${isLiked ? 'text-red-500 fill-red-500' : 'text-white'}`} />
+            </button>
+            <button className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+              <Bookmark className="w-5 h-5 text-white" />
+            </button>
+          </motion.div>
+
+          {/* Duration Badge */}
+          <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg">
+            <span className="text-xs font-semibold text-slate-700">{data.duration}</span>
+          </div>
+
+          {/* Category Icon */}
+          <div className="absolute top-4 left-4">
+            <motion.div 
+              className="w-12 h-12 bg-white/95 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg"
+              animate={{ rotate: isHovered ? 360 : 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Icon className="w-6 h-6 text-indigo-600" />
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Premium Content */}
+        <div className="p-6">
+          {/* Title & Subtitle */}
+          <div className="mb-3">
+            <motion.h3 
+              className="text-xl font-bold text-slate-900 mb-1 group-hover:text-indigo-600 transition-colors duration-300"
+            >
+              {data.title}
+            </motion.h3>
+            <p className="text-sm font-medium text-indigo-500 uppercase tracking-wider">
+              {data.subtitle}
+            </p>
+          </div>
+
+          {/* Description */}
+          <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">
+            {data.description}
+          </p>
+
+          {/* Elegant Divider */}
+          <div className="h-px bg-gradient-to-r from-slate-200 via-slate-100 to-transparent mb-4" />
+
+          {/* Meta Info */}
+          <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="flex items-center gap-4">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" />
+                {data.date}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5" />
+                {data.location}
+              </span>
+            </div>
+            <span className="flex items-center gap-1.5 font-medium text-slate-500">
+              <Eye className="w-3.5 h-3.5" />
+              {data.views}
+            </span>
+          </div>
+        </div>
+
+        {/* Premium Hover Border */}
+        <motion.div
+          className="absolute inset-0 rounded-3xl border-2 border-indigo-500/50 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+        
+        {/* Shine Effect */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%)`,
+            transform: isHovered ? 'translateX(100%)' : 'translateX(-100%)',
+            transition: 'transform 0.8s ease',
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+};
+
+/* ================= ENHANCED FULL-SCREEN LIGHTBOX ================= */
+const VideoLightbox = ({ data, onClose, onNext, onPrev }) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
+  const Icon = data.icon;
+
+  // Lock body scroll when lightbox opens
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] bg-slate-950 overflow-y-auto"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Fixed Header */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-gradient-to-b from-slate-950 to-transparent"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+            <Icon className="w-5 h-5 text-indigo-400" />
+          </div>
+          <div>
+            <h3 className="text-white font-semibold text-sm">{data.title}</h3>
+            <p className="text-slate-400 text-xs">{data.category}</p>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-3">
+          <span className="text-slate-400 text-sm hidden sm:block">{data.duration}</span>
+          <motion.button
+            onClick={onClose}
+            className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+            whileHover={{ scale: 1.1, rotate: 90 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <X className="w-5 h-5 text-white" />
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* Main Content Container */}
+      <div className="min-h-screen pt-20 pb-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Video Player Section */}
+          <motion.div
+            className="relative mb-8"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="relative aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-black/50">
+              <video
+                src={data.src}
+                className="w-full h-full"
+                controls
+                autoPlay
+                playsInline
+                controlsList="nodownload"
+              />
+            </div>
+
+            {/* Navigation Buttons - Side */}
+            <motion.button
+              onClick={onPrev}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors hidden lg:flex border border-white/10"
+              whileHover={{ scale: 1.1, x: -5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </motion.button>
+            <motion.button
+              onClick={onNext}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors hidden lg:flex border border-white/10"
+              whileHover={{ scale: 1.1, x: 5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </motion.button>
+          </motion.div>
+
+          {/* Content Grid */}
+          <div className="grid lg:grid-cols-3 gap-8">
+            
+            {/* Left Column - Main Info */}
+            <div className="lg:col-span-2 space-y-6">
+              
+              {/* Title Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-xs font-semibold uppercase tracking-wider">
+                    {data.category}
+                  </span>
+                  <span className="text-slate-500 text-sm flex items-center gap-1">
+                    <Calendar className="w-4 h-4" />
+                    {data.date}
+                  </span>
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{data.title}</h1>
+                <p className="text-xl text-indigo-400 font-medium">{data.subtitle}</p>
+              </motion.div>
+
+              {/* Action Buttons */}
+              <motion.div 
+                className="flex flex-wrap gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <motion.button
+                  onClick={() => setIsLiked(!isLiked)}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors ${isLiked ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-white/10 text-white hover:bg-white/20 border border-white/10'}`}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Heart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
+                  {isLiked ? 'Liked' : 'Like'}
+                </motion.button>
+                <motion.button
+                  onClick={() => setIsSaved(!isSaved)}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors ${isSaved ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : 'bg-white/10 text-white hover:bg-white/20 border border-white/10'}`}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Bookmark className={`w-5 h-5 ${isSaved ? 'fill-current' : ''}`} />
+                  {isSaved ? 'Saved' : 'Save'}
+                </motion.button>
+                <motion.button
+                  className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-colors"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Share2 className="w-5 h-5" />
+                  Share
+                </motion.button>
+              </motion.div>
+
+              {/* Tabs */}
+              <motion.div 
+                className="border-b border-white/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <div className="flex gap-6">
+                  {['overview', 'highlights', 'details'].map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`pb-3 text-sm font-medium capitalize transition-colors relative ${activeTab === tab ? 'text-white' : 'text-slate-400 hover:text-white'}`}
+                    >
+                      {tab}
+                      {activeTab === tab && (
+                        <motion.div 
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-500"
+                          layoutId="activeTab"
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Tab Content */}
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-slate-300 leading-relaxed"
+              >
+                {activeTab === 'overview' && (
+                  <div className="space-y-4">
+                    <p className="text-lg leading-relaxed">{data.fullDescription}</p>
+                    <div className="flex items-center gap-2 text-sm text-slate-400 mt-4">
+                      <Users className="w-4 h-4" />
+                      <span>Participants: <span className="text-white">{data.participants}</span></span>
+                    </div>
+                  </div>
+                )}
+                {activeTab === 'highlights' && (
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {data.highlights.map((highlight, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        className="flex items-start gap-3 p-4 bg-white/5 rounded-xl border border-white/10"
+                      >
+                        <Star className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{highlight}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+                {activeTab === 'details' && (
+                  <div className="space-y-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                        <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                          <MapPin className="w-4 h-4" />
+                          Location
+                        </div>
+                        <p className="text-white font-medium">{data.location}</p>
+                      </div>
+                      <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                        <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                          <Clock className="w-4 h-4" />
+                          Duration
+                        </div>
+                        <p className="text-white font-medium">{data.duration}</p>
+                      </div>
+                      <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                        <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                          <Calendar className="w-4 h-4" />
+                          Date
+                        </div>
+                        <p className="text-white font-medium">{data.date}</p>
+                      </div>
+                      <div className="p-4 bg-white/5 rounded-xl border border-white/10">
+                        <div className="flex items-center gap-2 text-slate-400 text-sm mb-1">
+                          <Eye className="w-4 h-4" />
+                          Views
+                        </div>
+                        <p className="text-white font-medium">{data.views}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Right Column - Stats & Info */}
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+                className="bg-white/5 rounded-2xl p-6 border border-white/10"
+              >
+                <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                  <Award className="w-5 h-5 text-amber-400" />
+                  Event Statistics
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-slate-400 text-sm">Total Views</span>
+                    <span className="text-white font-bold">{data.views}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-slate-400 text-sm">Duration</span>
+                    <span className="text-white font-bold">{data.duration}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3 border-b border-white/10">
+                    <span className="text-slate-400 text-sm">Category</span>
+                    <span className="text-indigo-400 font-medium">{data.category}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-3">
+                    <span className="text-slate-400 text-sm">Date</span>
+                    <span className="text-white font-medium text-sm">{data.date}</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+                className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 text-white"
+              >
+                <h3 className="font-semibold mb-2">More Videos</h3>
+                <p className="text-white/80 text-sm mb-4">Explore more moments from our school journey</p>
+                <div className="flex gap-2">
+                  <button onClick={onPrev} className="flex-1 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium transition-colors">
+                    Previous
+                  </button>
+                  <button onClick={onNext} className="flex-1 py-2 bg-white hover:bg-white/90 text-indigo-600 rounded-lg text-sm font-medium transition-colors">
+                    Next
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+/* ================= MAIN GALLERY ================= */
+const Gallery = () => {
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  
+  const currentIndex = videos.findIndex((v) => v.id === selectedVideo?.id);
+  
+  const handleNext = () => {
+    const nextIndex = (currentIndex + 1) % videos.length;
+    setSelectedVideo(videos[nextIndex]);
+  };
+  
+  const handlePrev = () => {
+    const prevIndex = (currentIndex - 1 + videos.length) % videos.length;
+    setSelectedVideo(videos[prevIndex]);
+  };
+
+  return (
+    <section className="relative py-24 lg:py-32 bg-gradient-to-b from-slate-50 via-white to-slate-50 overflow-hidden">
+      
+      {/* Premium Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-indigo-100/40 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-100/40 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-50/30 rounded-full blur-[150px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Premium Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white rounded-full shadow-lg shadow-indigo-100 border border-indigo-100 mb-8"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+              <Sparkles className="w-5 h-5 text-amber-500" />
+            </motion.div>
+            <span className="text-sm font-bold text-slate-600 uppercase tracking-widest">Memories in Motion</span>
+          </motion.div>
+
+          <motion.h2 
+            className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight"
+          >
+            School{" "}
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Video Gallery
+              </span>
+              <motion.span 
+                className="absolute -bottom-2 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+              />
+            </span>
+          </motion.h2>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed font-light"
+          >
+            Relive the cherished moments of our academic journey through these 
+            <span className="text-slate-700 font-medium"> carefully curated visual stories</span>
+          </motion.p>
+        </motion.div>
+
+        {/* Premium Grid - 3 per row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          {videos.map((video, index) => (
+            <VideoCard
+              key={video.id}
+              data={video}
+              index={index}
+              onClick={setSelectedVideo}
+            />
+          ))}
+        </div>
+
+        {/* Elegant Footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-20 text-center"
+        >
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-full shadow-lg border border-slate-100">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            <span className="text-sm text-slate-500 font-medium">
+              Showing <span className="text-slate-900 font-bold">{videos.length}</span> featured videos
+            </span>
+            <span className="w-px h-4 bg-slate-200" />
+            <span className="text-sm text-slate-400">Updated regularly</span>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Enhanced Lightbox */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <VideoLightbox
+            data={selectedVideo}
+            onClose={() => setSelectedVideo(null)}
+            onNext={handleNext}
+            onPrev={handlePrev}
+          />
         )}
       </AnimatePresence>
-
-    </div>
+    </section>
   );
 };
 
 export default Gallery;
-

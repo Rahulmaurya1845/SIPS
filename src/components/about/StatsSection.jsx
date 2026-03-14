@@ -1,154 +1,238 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { BookOpen, Users, Trophy, Star, Sparkles } from "lucide-react";
 
-// Animated Counter Component with "+" Support
-const Counter = ({ value }) => {
+// --- ANIMATED COUNTER ---
+const AnimatedCounter = ({ value, suffix = "" }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ''));
   
-  // Extract number and suffix
-  const match = value.match(/^([\d,]+)(.*)$/);
-  const numericValue = match ? parseInt(match[1].replace(/,/g, '')) : 0;
-  const suffix = match ? match[2] : "";
-  
-  const spring = useSpring(0, { duration: 2500, bounce: 0 });
-  const display = useTransform(spring, (current) => 
-    Math.round(current).toLocaleString()
-  );
+  const spring = useSpring(0, { mass: 1, stiffness: 50, damping: 20 });
+  const display = useTransform(spring, (current) => Math.floor(current));
 
-  React.useEffect(() => {
-    if (isInView) {
-      spring.set(numericValue);
-    }
+  useEffect(() => {
+    if (isInView) spring.set(numericValue);
   }, [isInView, numericValue, spring]);
 
   return (
-    <span ref={ref} className="tabular-nums inline-flex items-center">
-      {isInView ? (
-        <motion.span>{display}</motion.span>
-      ) : (
-        "0"
-      )}
-      <span>{suffix}</span>
+    <span ref={ref} className="flex items-baseline">
+      <motion.span className="tabular-nums">{display}</motion.span>
+      <span className="text-2xl sm:text-3xl ml-1">{suffix}</span>
     </span>
   );
 };
 
+// --- FLOATING DOTS COMPONENT ---
+const FloatingDots = ({ color, count = 6, speed = 20, direction = 1 }) => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(count)].map((_, i) => (
+        <motion.div
+          key={i}
+          className={`absolute rounded-full ${color}`}
+          style={{
+            width: Math.random() * 8 + 4 + "px",
+            height: Math.random() * 8 + 4 + "px",
+            left: Math.random() * 100 + "%",
+            top: Math.random() * 100 + "%",
+          }}
+          animate={{
+            y: [0, -30 * direction, 0],
+            x: [0, Math.random() * 20 - 10, 0],
+            opacity: [0.3, 0.8, 0.3],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: speed + Math.random() * 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: Math.random() * 5,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// --- DATA ---
 const stats = [
   { 
-    number: "10+", 
+    number: "25", 
+    suffix: "+",
     label: "Years of Excellence", 
-    gradient: "from-blue-600 to-cyan-500",
-    shadow: "hover:shadow-blue-500/25",
-    borderGradient: "from-blue-500 to-cyan-400"
+    desc: "Nurturing young minds",
+    icon: Trophy,
+    color: "bg-amber-400",
+    gradient: "from-amber-400 to-orange-400",
+    lightGradient: "from-amber-50 to-orange-50",
+    dots: "bg-amber-400",
   },
   { 
-    number: "25+", 
-    label: "Qualified Teachers", 
-    gradient: "from-violet-600 to-purple-500",
-    shadow: "hover:shadow-violet-500/25",
-    borderGradient: "from-violet-500 to-purple-400"
+    number: "50", 
+    suffix: "+",
+    label: "Expert Teachers", 
+    desc: "Dedicated educators",
+    icon: BookOpen,
+    color: "bg-blue-400",
+    gradient: "from-blue-400 to-cyan-400",
+    lightGradient: "from-blue-50 to-cyan-50",
+    dots: "bg-blue-400",
   },
   { 
-    number: "1000+", 
-    label: "Active Students", 
-    gradient: "from-amber-500 to-orange-500",
-    shadow: "hover:shadow-amber-500/25",
-    borderGradient: "from-amber-500 to-orange-400"
+    number: "2000", 
+    suffix: "+",
+    label: "Happy Students", 
+    desc: "Learning with joy",
+    icon: Users,
+    color: "bg-rose-400",
+    gradient: "from-rose-400 to-pink-400",
+    lightGradient: "from-rose-50 to-pink-50",
+    dots: "bg-rose-400",
+  },
+  { 
+    number: "100", 
+    suffix: "%",
+    label: "Results", 
+    desc: "Academic success",
+    icon: Star,
+    color: "bg-emerald-400",
+    gradient: "from-emerald-400 to-teal-400",
+    lightGradient: "from-emerald-50 to-teal-50",
+    dots: "bg-emerald-400",
   },
 ];
 
+// --- MAIN COMPONENT ---
+
 const StatsSection = () => {
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden">
+    <section className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100">
       
-      {/* --- Ambient Background --- */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-100/50 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-100/50 rounded-full blur-[100px]"></div>
-        {/* Subtle Grid Pattern */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+      {/* --- PREMIUM BACKGROUND LAYERS --- */}
+      
+      {/* Soft Mesh Gradient */}
+      <div className="absolute inset-0 opacity-60">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-blue-100/40 to-purple-100/40 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-100/40 to-rose-100/40 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-emerald-50/30 to-cyan-50/30 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Floating Dots - Multiple Colors & Layers */}
+      <FloatingDots color="bg-blue-400/40" count={8} speed={15} direction={1} />
+      <FloatingDots color="bg-rose-400/40" count={6} speed={20} direction={-1} />
+      <FloatingDots color="bg-amber-400/40" count={5} speed={18} direction={1} />
+      <FloatingDots color="bg-emerald-400/40" count={7} speed={22} direction={-1} />
+      <FloatingDots color="bg-purple-400/30" count={4} speed={25} direction={1} />
+
+      {/* Subtle Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         
-        {/* --- Header --- */}
+        {/* --- HEADER --- */}
+        <div className="text-center mb-16 sm:mb-20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 shadow-sm mb-8"
+          >
+            <Sparkles className="w-4 h-4 text-amber-500" />
+            <span className="text-xs font-bold tracking-widest text-slate-600 uppercase">Our Achievements</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-6"
+          >
+            Building Bright <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Futures</span>
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
+          >
+            For over two decades, we have been shaping young minds with dedication, 
+            innovation, and a commitment to excellence in education.
+          </motion.p>
+        </div>
+
+        {/* --- STATS GRID --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon;
+            
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="group relative"
+              >
+                {/* Card */}
+                <div className={`relative h-full rounded-3xl p-8 bg-gradient-to-br ${stat.lightGradient} border border-white/50 shadow-xl shadow-slate-200/50 backdrop-blur-sm overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-${stat.color}/20`}>
+                  
+                  {/* Floating dots inside card */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <FloatingDots color={stat.dots} count={4} speed={10} />
+                  </div>
+
+                  {/* Top accent line */}
+                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${stat.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
+
+                  {/* Icon */}
+                  <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-lg mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                    <Icon className="w-7 h-7 text-white" strokeWidth={1.5} />
+                  </div>
+
+                  {/* Number */}
+                  <div className={`text-5xl sm:text-6xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-2`}>
+                    <AnimatedCounter value={stat.number} suffix={stat.suffix} />
+                  </div>
+
+                  {/* Label */}
+                  <h3 className="text-xl font-bold text-slate-800 mb-1 group-hover:text-slate-900 transition-colors">
+                    {stat.label}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-slate-500">
+                    {stat.desc}
+                  </p>
+
+                  {/* Decorative corner */}
+                  <div className={`absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-gradient-to-br ${stat.gradient} opacity-10 blur-2xl group-hover:opacity-20 transition-opacity duration-500`} />
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* --- BOTTOM TRUST BADGES --- */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ delay: 0.6 }}
+          className="mt-16 flex flex-wrap justify-center gap-4"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-            Our Growth in Numbers
-          </h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            We take pride in our journey of excellence and the impact we create every day.
-          </p>
-        </motion.div>
-
-        {/* --- Stats Grid --- */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              whileHover={{ y: -8 }}
-              className={`group relative bg-white rounded-3xl p-8 sm:p-10 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-500 ${stat.shadow}`}
-            >
-              {/* --- Premium Card Design Elements --- */}
-              
-              {/* Gradient Border Effect (Top) */}
-              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${stat.borderGradient} rounded-t-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-              
-              {/* Glassmorphism Shine */}
-              <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                {/* Diagonal Shine Line */}
-                <div className={`absolute -top-[100%] left-0 w-[150%] h-[200%] bg-gradient-to-r from-transparent via-white/30 to-transparent -rotate-45 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out`}></div>
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10 flex flex-col items-center text-center">
-                
-                {/* Number with Glow */}
-                <div className="relative mb-6">
-                  {/* Ambient Glow behind number */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-20 blur-3xl rounded-full transform scale-150`}></div>
-                  
-                  <h3 className={`text-5xl sm:text-6xl font-extrabold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent relative z-10 drop-shadow-sm`}>
-                    <Counter value={stat.number} />
-                  </h3>
-                </div>
-
-                {/* Label */}
-                <p className="text-slate-600 font-semibold text-lg">
-                  {stat.label}
-                </p>
-
-                {/* Decorative Line */}
-                <div className="mt-6 flex items-center gap-2">
-                  <div className="h-px w-8 bg-slate-200 group-hover:bg-gradient-to-r group-hover:from-transparent group-hover:to-slate-300 transition-all duration-500"></div>
-                  <div className={`w-2 h-2 rounded-full bg-gradient-to-br ${stat.gradient} opacity-60`}></div>
-                  <div className="h-px w-8 bg-slate-200 group-hover:bg-gradient-to-l group-hover:from-transparent group-hover:to-slate-300 transition-all duration-500"></div>
-                </div>
-              </div>
-
-              {/* Corner Accent (Premium Feel) */}
-              <div className="absolute bottom-4 right-4 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-slate-100">
-                  <path d="M100 0H0V100C0 44.7 44.7 0 100 0Z" />
-                </svg>
-              </div>
-
-            </motion.div>
+          {["CBSE Affiliated", "ISO Certified", "Best School Award 2023"].map((badge, i) => (
+            <div key={i} className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 shadow-sm">
+              <div className="w-2 h-2 rounded-full bg-green-500" />
+              <span className="text-sm font-medium text-slate-600">{badge}</span>
+            </div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
