@@ -28,6 +28,53 @@ import {
 } from "framer-motion";
 import { useEffect, useRef } from "react";
 
+// SVG Icon Components
+const AttendanceIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+    <line x1="16" y1="2" x2="16" y2="6"></line>
+    <line x1="8" y1="2" x2="8" y2="6"></line>
+    <line x1="3" y1="10" x2="21" y2="10"></line>
+    <path d="m9 16 2 2 4-4"></path>
+  </svg>
+);
+
+const HomeworkIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <line x1="10" y1="9" x2="8" y2="9"></line>
+  </svg>
+);
+
+const BellIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+  </svg>
+);
+
+const MessageIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+  </svg>
+);
+
+const AcademicIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+  </svg>
+);
+
+const SecurityIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </svg>
+);
+
 const SmartSchoolApp = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: "-100px" });
@@ -71,52 +118,58 @@ const SmartSchoolApp = () => {
 
   const features = [
     {
-      icon: <CalendarCheck size={26} />,
+      icon: <AttendanceIcon className="w-7 h-7" />,
       title: "Daily Attendance",
       desc: "Real-time attendance alerts sent directly to parents with instant notifications.",
       gradient: "from-amber-300 via-orange-300 to-rose-300",
       shadow: "shadow-amber-200",
       iconBg: "bg-gradient-to-br from-amber-100 to-orange-100",
+      iconColor: "text-amber-500",
     },
     {
-      icon: <FileText size={26} />,
+      icon: <HomeworkIcon className="w-7 h-7" />,
       title: "Homework & Results",
       desc: "Assignments, grades & academic reports accessible anytime, anywhere.",
       gradient: "from-emerald-300 via-teal-300 to-cyan-300",
       shadow: "shadow-emerald-200",
       iconBg: "bg-gradient-to-br from-emerald-100 to-teal-100",
+      iconColor: "text-emerald-500",
     },
     {
-      icon: <Bell size={26} />,
+      icon: <BellIcon className="w-7 h-7" />,
       title: "Instant Updates",
       desc: "Emergency alerts & school announcements delivered instantly to your device.",
       gradient: "from-rose-300 via-pink-300 to-fuchsia-300",
       shadow: "shadow-rose-200",
       iconBg: "bg-gradient-to-br from-rose-100 to-pink-100",
+      iconColor: "text-rose-500",
     },
     {
-      icon: <MessageSquare size={26} />,
+      icon: <MessageIcon className="w-7 h-7" />,
       title: "Direct Messaging",
       desc: "Secure parent-teacher communication channel with end-to-end encryption.",
       gradient: "from-violet-300 via-purple-300 to-indigo-300",
       shadow: "shadow-violet-200",
       iconBg: "bg-gradient-to-br from-violet-100 to-purple-100",
+      iconColor: "text-violet-500",
     },
     {
-      icon: <GraduationCap size={26} />,
+      icon: <AcademicIcon className="w-7 h-7" />,
       title: "Academic Progress",
       desc: "Track your child's learning journey with detailed analytics and insights.",
       gradient: "from-cyan-300 via-sky-300 to-blue-300",
       shadow: "shadow-cyan-200",
       iconBg: "bg-gradient-to-br from-cyan-100 to-sky-100",
+      iconColor: "text-cyan-500",
     },
     {
-      icon: <Shield size={26} />,
+      icon: <SecurityIcon className="w-7 h-7" />,
       title: "Safety First",
       desc: "Advanced security protocols ensuring your child's data remains protected.",
       gradient: "from-indigo-300 via-blue-300 to-slate-300",
       shadow: "shadow-indigo-200",
       iconBg: "bg-gradient-to-br from-indigo-100 to-blue-100",
+      iconColor: "text-indigo-500",
     },
   ];
 
@@ -374,7 +427,7 @@ const SmartSchoolApp = () => {
               {/* Advanced Icon */}
               <div className="relative mb-6 flex justify-center">
                 <div className={`relative w-20 h-20 flex items-center justify-center rounded-3xl ${card.iconBg} shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                  <div className={`bg-gradient-to-r ${card.gradient} bg-clip-text text-transparent`}>
+                  <div className={card.iconColor}>
                     {card.icon}
                   </div>
                   <div className={`absolute -inset-2 bg-gradient-to-r ${card.gradient} opacity-20 blur-xl rounded-full group-hover:opacity-40 transition-opacity duration-500`} />
