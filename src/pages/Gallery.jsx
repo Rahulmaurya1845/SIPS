@@ -23,7 +23,13 @@ import {
   Palette,
   Microscope,
   Handshake,
-  Sun
+  Sun,
+  Apple,
+  Gamepad2,
+  Utensils,
+  HeartHandshake,
+  BookText,
+  Sprout
 } from "lucide-react";
 
 /* ================= VIDEO IMPORTS ================= */
@@ -38,227 +44,227 @@ import vid8 from "../assets/videos/8.mp4";
 import vid9 from "../assets/videos/9.mp4";
 import vid10 from "../assets/videos/10.mp4";
 
-/* ================= ENHANCED VIDEO DATA WITH DETAILED CONTENT ================= */
+/* ================= ENHANCED VIDEO DATA WITH ACCURATE PREMIUM CONTENT ================= */
 const videos = [
   { 
     id: 1, 
     src: vid1, 
-    title: "Campus Infrastructure Tour", 
-    subtitle: "State-of-the-Art Learning Environment",
-    description: "A comprehensive visual journey through our world-class educational facilities designed to foster academic excellence and holistic development.",
-    fullDescription: "Step into the future of education with our meticulously designed campus infrastructure. This exclusive tour showcases our modern smart classrooms equipped with interactive digital boards, advanced science laboratories featuring cutting-edge equipment, a sprawling library housing over 50,000 volumes, and dedicated spaces for arts, music, and physical education. Our eco-friendly campus spans 25 acres of lush greenery, providing students with an inspiring environment that nurtures creativity and intellectual growth. The architecture seamlessly blends functionality with aesthetics, creating spaces that encourage collaboration, innovation, and peaceful contemplation.",
+    title: "Summer Activity", 
+    subtitle: "Fun-Filled Summer Learning Adventures",
+    description: "Students engage in exciting summer activities combining learning with outdoor play, creative arts, and team building exercises.",
+    fullDescription: "Our Summer Activity Program transforms learning into an exciting adventure for young minds. This video captures students participating in a diverse range of activities designed to keep them engaged, active, and learning throughout the summer break. Watch as children explore nature walks, engage in creative craft workshops, participate in team sports, and enjoy interactive storytelling sessions. Our dedicated teachers ensure every child discovers new interests while building confidence and social skills. The program balances educational enrichment with pure fun, creating unforgettable summer memories.",
     highlights: [
-      "Smart classrooms with interactive technology",
-      "Advanced science and computer laboratories",
-      "Olympic-standard sports facilities",
-      "Eco-friendly sustainable campus design",
-      "25-acre sprawling green campus"
+      "Outdoor nature exploration walks",
+      "Creative arts and craft workshops",
+      "Team building games and sports",
+      "Interactive storytelling sessions",
+      "Water play and cooling activities"
     ],
-    participants: "Campus Development Team",
+    participants: "Primary Section Students (Grades 1-5)",
     duration: "03:45",
-    date: "March 15, 2024",
-    location: "Main Campus, Academic Block",
+    date: "Summer 2024",
+    location: "School Campus & Playground",
     views: "12.5K",
-    category: "Campus Life",
-    icon: BookOpen
+    category: "Summer Camp",
+    icon: Sun
   },
   { 
     id: 2, 
     src: vid2, 
-    title: "Evening Study Hours", 
-    subtitle: "Dedicated Academic Pursuits",
-    description: "Witness the dedication and focus of our students during evening self-study sessions in our serene library environment.",
-    fullDescription: "Experience the quiet determination of our students during evening study hours, a cherished tradition that exemplifies our commitment to academic excellence. The video captures students engaged in deep learning, collaborative discussions, and individual research within the tranquil ambiance of our central library. Under the soft glow of reading lamps, you'll see future scholars poring over textbooks, utilizing digital resources, and seeking guidance from faculty members who remain available for consultation. This daily ritual from 4:00 PM to 6:00 PM has been instrumental in developing disciplined study habits and fostering a culture of intellectual curiosity among our student body.",
+    title: "Hello Summer", 
+    subtitle: "Welcoming the Sunny Season with Joy",
+    description: "A vibrant celebration marking the beginning of summer with performances, decorations, and special assemblies.",
+    fullDescription: "Hello Summer is our annual celebration that marks the beginning of the most awaited season. This delightful event features students performing summer-themed songs, dances, and poems that capture the essence of sunny days and vacation excitement. The video showcases colorful classroom decorations, special morning assemblies where children share their summer plans, and the distribution of summer activity kits. Teachers organize engaging presentations about sun safety, healthy summer habits, and fun learning activities to do at home. It's a heartwarming start to a season of growth and exploration.",
     highlights: [
-      "Supervised study environment",
-      "Faculty consultation hours",
-      "Digital resource access",
-      "Peer learning sessions",
-      "Quiet contemplation spaces"
+      "Summer-themed student performances",
+      "Special morning assembly celebrations",
+      "Summer safety awareness sessions",
+      "Distribution of activity kits",
+      "Creative classroom decorations"
     ],
-    participants: "Students of Grades 9-12",
+    participants: "Entire School Community",
     duration: "02:30",
-    date: "February 28, 2024",
-    location: "Dr. Radhakrishnan Central Library",
+    date: "April 2024",
+    location: "School Assembly Ground",
     views: "8.9K",
-    category: "Academic Life",
-    icon: BookOpen
+    category: "Celebration",
+    icon: Sun
   },
   { 
     id: 3, 
     src: vid3, 
-    title: "Annual Sports Championship", 
-    subtitle: "Excellence in Athletics",
-    description: "Thrilling highlights from our inter-house athletic meet featuring track events, team sports, and outstanding sporting achievements.",
-    fullDescription: "Relive the adrenaline-pumping moments of our 45th Annual Sports Championship, where over 800 students competed across 35 different sporting events. The two-day extravaganza showcased remarkable athletic prowess, unwavering team spirit, and exemplary sportsmanship. From the 100-meter sprint to the marathon, from basketball finals to cricket matches, every event demonstrated the physical excellence we nurture alongside academic achievement. The video captures the electric atmosphere of the opening ceremony, the intensity of competition, the joy of victory, and the grace in defeat. Special highlights include the breaking of three school records and the spectacular closing ceremony featuring our renowned marching band.",
+    title: "Complete My Pairs", 
+    subtitle: "Interactive Memory & Matching Games",
+    description: "Students develop cognitive skills through engaging pair-matching games and memory-enhancing activities.",
+    fullDescription: "Complete My Pairs is an innovative cognitive development program that uses fun matching games to enhance memory, concentration, and pattern recognition skills. This video demonstrates students participating in various pair-matching activities using picture cards, educational flashcards, and digital interactive games. Children work in teams to find matching pairs related to animals, fruits, numbers, and letters, making learning both competitive and collaborative. Teachers guide students through progressive difficulty levels, helping them develop sharper observation skills and quicker recall abilities while having tremendous fun.",
     highlights: [
-      "35 sporting events across 2 days",
-      "800+ student participants",
-      "3 school records broken",
-      "Inter-house championship trophy",
-      "Marching band performance"
+      "Picture card matching games",
+      "Memory enhancement exercises",
+      "Team-based competitive activities",
+      "Pattern recognition challenges",
+      "Digital interactive matching games"
     ],
-    participants: "All Houses & Grades",
+    participants: "Grades 1-4 Students",
     duration: "05:20",
-    date: "January 20-21, 2024",
-    location: "Mahatma Gandhi Sports Complex",
+    date: "March 2024",
+    location: "Activity Room & Smart Classrooms",
     views: "15.2K",
-    category: "Sports",
-    icon: Trophy
+    category: "Cognitive Skills",
+    icon: Gamepad2
   },
   { 
     id: 4, 
     src: vid4, 
-    title: "Science Fair & Exhibition", 
-    subtitle: "Young Innovators Showcase",
-    description: "Groundbreaking student projects demonstrating scientific inquiry, innovation, and experimental excellence across multiple disciplines.",
-    fullDescription: "Discover the brilliant minds of tomorrow at our Annual Science Fair, where 150 innovative projects transformed our science pavilion into a hub of creativity and discovery. Students from grades 6 through 12 presented their research on topics ranging from renewable energy solutions and artificial intelligence applications to biotechnology advances and environmental conservation strategies. The exhibition featured working prototypes, detailed research papers, and live demonstrations that left visitors amazed. Notable projects included a solar-powered irrigation system, an AI-based waste segregation unit, and a novel approach to water purification using locally available materials. The event was graced by eminent scientists from the Indian Institute of Technology who praised the exceptional quality of student research.",
+    title: "Summer Vacation Fruits Activities", 
+    subtitle: "Learning Nutrition Through Fun",
+    description: "Educational activities teaching students about healthy eating, fruit identification, and nutritional awareness.",
+    fullDescription: "Our Summer Vacation Fruits Activities program makes healthy eating education exciting and hands-on. Students learn to identify various seasonal fruits, understand their nutritional benefits, and participate in creative fruit-based crafts. The video shows children engaged in fruit tasting sessions, creating fruit salads under teacher supervision, making fruit-themed artwork, and learning songs about healthy eating. Special emphasis is placed on understanding the importance of vitamins, staying hydrated during summer, and making healthy food choices. Parents appreciate how these activities encourage children to try new fruits and develop healthy eating habits.",
     highlights: [
-      "150 innovative student projects",
-      "Working prototypes on display",
-      "Expert evaluation by IIT scientists",
-      "Awards for top 10 innovations",
-      "Interactive science demonstrations"
+      "Seasonal fruit identification lessons",
+      "Hands-on fruit tasting sessions",
+      "Creative fruit craft activities",
+      "Nutritional awareness workshops",
+      "Healthy fruit salad preparation"
     ],
-    participants: "Grades 6-12 Science Students",
+    participants: "Primary Section Students",
     duration: "04:15",
-    date: "December 18, 2023",
-    location: "Sir C.V. Raman Science Pavilion",
+    date: "June 2024",
+    location: "School Cafeteria & Classrooms",
     views: "6.8K",
-    category: "Academics",
-    icon: Microscope
+    category: "Health & Nutrition",
+    icon: Apple
   },
   { 
     id: 5, 
     src: vid5, 
-    title: "Annual Cultural Festival", 
-    subtitle: "Celebrating Artistic Excellence",
-    description: "A vibrant celebration of classical dance, music, drama, and visual arts showcasing the rich cultural heritage and creative talents of our students.",
-    fullDescription: "Immerse yourself in the magic of 'Utsav 2023,' our three-day cultural extravaganza that brought together over 500 performers in a spectacular display of artistic excellence. The festival featured classical dance recitals including Bharatanatyam, Kathak, and Odissi; soulful musical performances spanning Hindustani classical, Carnatic, and Western genres; thought-provoking theatrical productions; and stunning art exhibitions. The highlight was the grand finale featuring a collaborative performance by all houses, depicting the unity in diversity that defines our nation. Eminent artists from across the country graced the event as judges and mentors, providing invaluable feedback to our young performers. The video captures the months of preparation, the backstage excitement, and the triumphant moments on stage.",
+    title: "Annual Cultural Activities", 
+    subtitle: "Celebrating Arts, Music & Performance",
+    description: "Grand showcase of student talents in dance, music, drama, and visual arts celebrating our rich cultural heritage.",
+    fullDescription: "The Annual Cultural Activities event is the highlight of our academic year, bringing together the entire school community in a spectacular celebration of arts and culture. This video captures mesmerizing classical dance performances, soulful musical renditions, thought-provoking theatrical plays, and stunning art exhibitions. Students showcase months of dedicated practice under the guidance of expert instructors. The event features inter-house competitions, solo performances, group choreography, and collaborative productions that demonstrate both individual talent and teamwork. From traditional folk dances to contemporary performances, every aspect reflects our commitment to holistic education and cultural preservation.",
     highlights: [
-      "500+ performers across 3 days",
-      "Classical & contemporary performances",
-      "Eminent artist judges",
-      "Inter-house competitions",
-      "Grand collaborative finale"
+      "Classical and contemporary dance performances",
+      "Vocal and instrumental music showcases",
+      "Theatrical plays and skits",
+      "Visual arts and craft exhibitions",
+      "Inter-house cultural competitions"
     ],
-    participants: "All Students & Houses",
+    participants: "Students from All Grades",
     duration: "06:10",
-    date: "November 15-17, 2023",
-    location: "Rabindranath Tagore Auditorium",
+    date: "December 2024",
+    location: "School Auditorium",
     views: "22.1K",
-    category: "Cultural",
+    category: "Cultural Fest",
     icon: Palette
   },
   { 
     id: 6, 
     src: vid6, 
-    title: "Graduation Ceremony 2023", 
-    subtitle: "Proud Convocation Moments",
-    description: "The solemn ceremony honoring our graduating class as they embark on new journeys equipped with knowledge, values, and cherished memories.",
-    fullDescription: "Witness the emotional and proud moments of our 38th Annual Graduation Ceremony, where 287 students from the Class of 2023 received their diplomas amidst cheers, tears, and celebrations. The ceremony, held in the presence of distinguished alumni, faculty members, and proud parents, recognized not only academic excellence but also outstanding contributions in sports, arts, and community service. The Chief Guest, a renowned educationist, delivered an inspiring address about the role of education in nation-building. The video captures the procession of graduates, the conferring of degrees, the valedictory speech by the school captain, and the emotional farewell as students lit candles symbolizing the light of knowledge they carry forward. Special awards were presented to top performers in various categories.",
+    title: "Summer Vacation Fruits Activity", 
+    subtitle: "Hands-On Healthy Living Workshop",
+    description: "Interactive workshop where students explore fruits through sensory activities, recipes, and creative projects.",
+    fullDescription: "This specialized Summer Vacation Fruits Activity workshop provides students with immersive learning experiences about healthy nutrition. Children engage their senses by touching, smelling, and tasting various fruits while learning about their origins and health benefits. The video documents students creating beautiful fruit collages, writing fruit-themed poems, participating in 'guess the fruit' games, and preparing simple no-fire fruit recipes. Teachers incorporate lessons on food hygiene, seasonal eating, and the importance of including fruits in daily diet. The activity culminates in a vibrant fruit festival where students share their creations with classmates.",
     highlights: [
-      "287 graduating students honored",
-      "Academic & extracurricular awards",
-      "Chief Guest: Dr. APJ Abdul Kalam Scholar",
-      "Valedictory address by School Captain",
-      "Candle lighting ceremony"
+      "Sensory exploration of fruits",
+      "No-fire fruit recipe preparation",
+      "Fruit-themed art and poetry",
+      "Interactive guessing games",
+      "Fruit festival celebration"
     ],
-    participants: "Class of 2023 & Families",
+    participants: "Grades 2-5 Students",
     duration: "08:45",
-    date: "October 28, 2023",
-    location: "Jawaharlal Nehru Memorial Hall",
+    date: "May 2024",
+    location: "Primary Activity Center",
     views: "45.2K",
-    category: "Ceremony",
-    icon: GraduationCap
+    category: "Workshop",
+    icon: Utensils
   },
   { 
     id: 7, 
     src: vid7, 
-    title: "Interactive Classroom Sessions", 
-    subtitle: "Modern Pedagogy in Action",
-    description: "Dynamic teaching methodologies showcasing collaborative learning, digital integration, and student-centered educational approaches.",
-    fullDescription: "Step inside our classrooms where education transcends traditional boundaries through innovative pedagogical approaches. This video showcases our teachers employing diverse methodologies including flipped classroom models, project-based learning, collaborative problem-solving, and technology-integrated instruction. You'll witness students engaged in Socratic seminars, conducting virtual experiments through augmented reality, participating in peer teaching sessions, and developing critical thinking through case study analyses. The classrooms buzz with energy as teachers facilitate rather than dictate, encouraging questions, debates, and creative solutions. Special focus is given to our STEM initiative where interdisciplinary learning connects science, technology, engineering, and mathematics in practical, real-world contexts.",
+    title: "Happy Mothers Day", 
+    subtitle: "Celebrating Love & Gratitude",
+    description: "Heartwarming celebrations where students honor mothers through special performances, handmade gifts, and expressions of love.",
+    fullDescription: "Our Mother's Day celebration is a touching tribute to the unconditional love and sacrifices of mothers. This emotional video captures students preparing surprise performances, creating handmade cards and crafts, and expressing their gratitude through poems and songs. The event includes special morning assemblies where children speak about what makes their mothers special, photo booths for capturing precious moments, and a small tea party where mothers are invited to school. Teachers help students understand the importance of appreciating parents daily, not just on special occasions. The joy on both children's and mothers' faces makes this one of our most cherished annual events.",
     highlights: [
-      "Flipped classroom methodology",
-      "AR/VR technology integration",
-      "Peer teaching programs",
-      "Socratic seminar discussions",
-      "Interdisciplinary STEM projects"
+      "Handmade card and craft making",
+      "Special song and dance performances",
+      "Poetry recitation for mothers",
+      "Mother-child photo sessions",
+      "Appreciation ceremony"
     ],
-    participants: "Faculty & Students Grades 6-10",
+    participants: "Primary Section with Mothers",
     duration: "02:50",
-    date: "September 12, 2023",
-    location: "Smart Classrooms, Academic Wing",
+    date: "May 2024",
+    location: "School Hall & Classrooms",
     views: "5.4K",
-    category: "Academics",
-    icon: BookOpen
+    category: "Special Day",
+    icon: HeartHandshake
   },
   { 
     id: 8, 
     src: vid8, 
-    title: "Student Art Exhibition", 
-    subtitle: "Creative Expressions Gallery",
-    description: "An elegant showcase of paintings, sculptures, digital art, and mixed media creations by our talented young artists.",
-    fullDescription: "Wander through the inspiring galleries of our Annual Student Art Exhibition, featuring over 300 original artworks created by students from grades 1 through 12. The exhibition spanned various mediums including oil and acrylic paintings, watercolor landscapes, charcoal sketches, clay sculptures, digital illustrations, and innovative mixed-media installations. Each piece told a unique story, reflecting the young artists' perspectives on nature, society, emotions, and imagination. The inauguration was performed by a celebrated contemporary artist who spent hours interacting with students and providing personalized feedback. The video captures the meticulous curation process, the proud moments of young artists explaining their work to visitors, and the vibrant atmosphere of the opening day that saw over 1,000 attendees appreciating the creative talents on display.",
+    title: "Activity on Articles (A or An)", 
+    subtitle: "Mastering English Grammar Through Play",
+    description: "Interactive grammar lessons teaching correct usage of articles 'A' and 'An' through games and activities.",
+    fullDescription: "Learning grammar becomes an exciting adventure with our Article Activity program. This educational video demonstrates how teachers transform the concept of articles 'A' and 'An' into engaging games and activities. Students participate in sorting games where they categorize objects, interactive whiteboard activities, flashcard matching, and role-play scenarios using correct articles. The video shows children singing the 'A/An' song, playing 'Article Detective' around the classroom, and creating their own picture books with proper article usage. This activity-based approach ensures that grammar rules are understood naturally through fun rather than rote memorization.",
     highlights: [
-      "300+ original artworks displayed",
-      "Multiple mediums & techniques",
-      "Renowned artist inauguration",
-      "Student-artist interactions",
-      "Live demonstration sessions"
+      "Article sorting games with objects",
+      "Interactive whiteboard activities",
+      "Article detective scavenger hunt",
+      "Grammar songs and rhymes",
+      "Create-your-own picture books"
     ],
-    participants: "Art Students All Grades",
+    participants: "Grades 1-3 Students",
     duration: "03:15",
-    date: "August 22, 2023",
-    location: "M.F. Hussain Art Gallery",
+    date: "February 2024",
+    location: "English Language Lab",
     views: "7.2K",
-    category: "Arts",
-    icon: Palette
+    category: "Language Learning",
+    icon: BookText
   },
   { 
     id: 9, 
     src: vid9, 
-    title: "Parent-Teacher Partnership Meet", 
-    subtitle: "Collaborative Education Summit",
-    description: "Meaningful dialogues between educators and families fostering shared responsibility for holistic student development and academic success.",
-    fullDescription: "Experience the essence of our collaborative approach to education through the Parent-Teacher Partnership Meet, a comprehensive two-day event designed to strengthen the home-school connection. Over 1,200 parents engaged in one-on-one consultations with teachers, attended workshops on effective parenting strategies, participated in classroom observations, and joined panel discussions on contemporary educational challenges. The meet featured special sessions on digital wellness, emotional intelligence, career guidance, and supporting diverse learning needs. Teachers presented detailed portfolios of student progress, highlighting not just academic achievements but also growth in creativity, leadership, and social responsibility. The video documents the enthusiastic participation, the insightful exchanges, and the collective commitment to nurturing each child's unique potential.",
+    title: "Activity on Articles (A or An)", 
+    subtitle: "Advanced Grammar Concepts Made Simple",
+    description: "Advanced interactive sessions reinforcing article usage through storytelling, sentence building, and peer teaching.",
+    fullDescription: "Building on basic concepts, this advanced Article Activity session helps students master the nuances of 'A' and 'An' usage through sophisticated interactive methods. The video showcases students engaged in storytelling circles where they must use correct articles, sentence building competitions, peer teaching sessions, and digital quiz games. Teachers use real-life objects, picture cards, and classroom items to create meaningful contexts for grammar practice. Students also learn exceptions and special cases, developing confidence in their English communication skills. The collaborative approach encourages peer learning and builds public speaking confidence alongside grammar proficiency.",
     highlights: [
-      "1,200+ parent participants",
-      "Individual teacher consultations",
-      "Parenting workshops & panels",
-      "Student portfolio presentations",
-      "Career guidance sessions"
+      "Storytelling with correct article usage",
+      "Sentence building competitions",
+      "Peer teaching and learning circles",
+      "Digital grammar quiz games",
+      "Real-life context practice"
     ],
-    participants: "All Parents & Faculty",
+    participants: "Grades 3-5 Students",
     duration: "02:30",
-    date: "July 29-30, 2023",
-    location: "Multiple Venues, Campus",
+    date: "March 2024",
+    location: "Smart Classrooms",
     views: "3.8K",
-    category: "Community",
-    icon: Handshake
+    category: "Language Skills",
+    icon: BookOpen
   },
   { 
     id: 10, 
     src: vid10, 
-    title: "Morning Assembly Traditions", 
-    subtitle: "Daily Inspiration & Values",
-    description: "The ceremonial beginning of each school day featuring student presentations, thought-provoking speeches, and collective affirmations of our core values.",
-    fullDescription: "Begin each day with inspiration through our Morning Assembly, a cherished tradition that has shaped the character of our students for over three decades. This video captures the solemn yet energizing atmosphere as 2,000 students gather in perfect discipline to start their day with purpose. The assembly features the school prayer, pledge recitation, thought for the day presented by students, important announcements, recognition of achievements, and special presentations on national and international days. Student council members develop leadership skills by conducting proceedings, while the school choir fills the air with melodious renditions. The video showcases special assemblies including Independence Day celebrations, Teacher's Day tributes, and the investiture ceremony, demonstrating how these daily gatherings instill values of patriotism, respect, gratitude, and community service in our students.",
+    title: "Activity on Bad Habits and Good Habits", 
+    subtitle: "Character Building & Life Skills",
+    description: "Important life lessons teaching students to identify harmful behaviors and cultivate positive daily routines.",
+    fullDescription: "Our Good Habits vs Bad Habits activity is a crucial part of character education, helping young learners understand the impact of their daily choices. This insightful video shows students participating in role-plays demonstrating both positive and negative behaviors, creating habit-tracking charts, and discussing scenarios in group circles. Teachers use storytelling to illustrate consequences of actions, while students engage in 'habit sorting' games and pledge ceremonies. The activity covers personal hygiene, study routines, respectful behavior, healthy eating, and environmental consciousness. Students create colorful posters displaying good habits and take home commitment cards to track their progress, making character building a continuous journey.",
     highlights: [
-      "Daily gathering of 2,000 students",
-      "Student-led proceedings",
-      "Special day celebrations",
-      "School choir performances",
-      "Achievement recognitions"
+      "Role-play scenarios of habits",
+      "Habit sorting and classification games",
+      "Personal commitment pledge ceremony",
+      "Poster making on good habits",
+      "Take-home habit tracking cards"
     ],
-    participants: "Entire School Community",
+    participants: "Grades 1-5 Students",
     duration: "04:00",
-    date: "June 15, 2023",
-    location: "School Assembly Ground",
+    date: "January 2024",
+    location: "Life Skills Room",
     views: "9.6K",
-    category: "Tradition",
-    icon: Sun
+    category: "Character Education",
+    icon: Sprout
   },
 ];
 
@@ -266,7 +272,20 @@ const videos = [
 const VideoCard = ({ data, index, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const videoRef = useRef(null);
   const Icon = data.icon;
+
+  // Pause video when not hovered to save performance
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isHovered) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    }
+  }, [isHovered]);
 
   return (
     <motion.div
@@ -284,13 +303,16 @@ const VideoCard = ({ data, index, onClick }) => {
         {/* Premium Thumbnail */}
         <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
           <motion.video
+            ref={videoRef}
             src={data.src}
             className="w-full h-full object-cover"
             animate={{ scale: isHovered ? 1.08 : 1 }}
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
             muted
             playsInline
+            loop
             preload="metadata"
+            loading="lazy"
           />
           
           {/* Elegant Overlay */}
@@ -388,8 +410,8 @@ const VideoCard = ({ data, index, onClick }) => {
                 {data.date}
               </span>
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5" />
-                {data.location}
+                <Users className="w-3.5 h-3.5" />
+                {data.participants.split(' ')[0]}
               </span>
             </div>
             <span className="flex items-center gap-1.5 font-medium text-slate-500">
@@ -435,6 +457,17 @@ const VideoLightbox = ({ data, onClose, onNext, onPrev }) => {
       document.body.style.overflow = 'unset';
     };
   }, []);
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onNext();
+      if (e.key === 'ArrowLeft') onPrev();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose, onNext, onPrev]);
 
   return (
     <motion.div
@@ -491,6 +524,7 @@ const VideoLightbox = ({ data, onClose, onNext, onPrev }) => {
                 autoPlay
                 playsInline
                 controlsList="nodownload"
+                preload="auto"
               />
             </div>
 

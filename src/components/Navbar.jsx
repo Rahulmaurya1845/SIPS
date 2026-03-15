@@ -190,100 +190,129 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* MOBILE MENU */}
-      <AnimatePresence>
-        {menuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[150] lg:hidden"
+     {/* MOBILE MENU */}
+<AnimatePresence>
+  {menuOpen && (
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={() => setMenuOpen(false)}
+        className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[150] lg:hidden"
+      />
+
+      <motion.div
+        initial={{ x: "-100%", opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: "-100%", opacity: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        className="fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-slate-50 z-[200] lg:hidden shadow-2xl flex flex-col"
+      >
+
+        {/* MOBILE MENU HEADER - FIXED WITH BIGGER LOGO PUSHED LEFT */}
+        <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex-shrink-0">
+          {/* Logo - BIGGER SIZE, PUSHED LEFT with negative margin */}
+          <div className="w-32 h-32 flex items-center justify-center flex-shrink-0 -ml-2">
+            <img
+              src={logo}
+              alt="School Logo"
+              className="w-full h-full object-contain"
+              style={{
+                mixBlendMode: "normal",
+                filter: "contrast(1.1) brightness(1.2)",
+              }}
             />
+          </div>
 
-            <motion.div
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-100%", opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-slate-900 z-[200] lg:hidden shadow-2xl"
-            >
+          {/* School Name - ADJUSTED SIZE TO FIT */}
+          <div className="flex-1 min-w-0 pr-2">
+            <h2 className="text-white font-bold text-lg leading-tight">
+              Sahodara
+            </h2>
+            <h2 className="text-white font-bold text-lg leading-tight">
+              International
+            </h2>
+            <p className="text-amber-400 font-semibold text-sm leading-tight mt-1">
+              Public School
+            </p>
+          </div>
 
-              <div className="flex items-center justify-between p-4 border-b border-white/10 bg-slate-900">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-14 h-14rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden bg-transparent">
-                    <img
-                      src={logo}
-                      alt="School Logo"
-                      className="w-full h-full object-contain"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "contrast(1.1)",
-                      }}
-                    />
-                  </div>
+          {/* Close Button */}
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="p-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors flex-shrink-0 self-start"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
-                  <div className="min-w-0">
-                    <h2 className="text-white font-bold text-sm truncate">
-                      Sahodara International
-                    </h2>
-                    <p className="text-white/50 text-xs">Public School</p>
-                  </div>
-                </div>
+        {/* SCROLLABLE NAVIGATION AREA */}
+        <nav className="flex-1 overflow-y-auto p-4 space-y-2 bg-slate-50">
+          {navLinks.map((link, index) => {
+            const active = isLinkActive(link.path);
 
-                <button
+            return (
+              <motion.div
+                key={link.path}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.08, type: "spring", stiffness: 100 }}
+              >
+                <Link
+                  to={link.path}
                   onClick={() => setMenuOpen(false)}
-                  className="p-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors flex-shrink-0"
+                  className={`flex items-center justify-between p-4 rounded-2xl transition-all duration-300 ${
+                    active
+                      ? "bg-gradient-to-r from-blue-700 to-indigo-700 text-white shadow-lg shadow-blue-500/30"
+                      : "text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+                  }`}
                 >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+                  <div className="flex items-center gap-4">
+                    <div className={`p-2 rounded-xl ${active ? "bg-amber-400/20" : "bg-slate-200"}`}>
+                      <link.icon className={`w-5 h-5 ${active ? "text-amber-400" : "text-slate-600"}`} />
+                    </div>
 
-              <nav className="p-4 space-y-2 bg-slate-900">
-                {navLinks.map((link, index) => {
-                  const active = isLinkActive(link.path);
+                    <span className="font-semibold text-base">{link.label}</span>
+                  </div>
 
-                  return (
-                    <motion.div
-                      key={link.path}
-                      initial={{ opacity: 0, x: -50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.08, type: "spring", stiffness: 100 }}
-                    >
-                      <Link
-                        to={link.path}
-                        onClick={() => setMenuOpen(false)}
-                        className={`flex items-center justify-between p-4 rounded-2xl transition-all duration-300 ${
-                          active
-                            ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
-                            : "text-white/70 hover:bg-white/5 hover:text-white"
-                        }`}
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className={`p-2 rounded-xl ${active ? "bg-white/20" : "bg-white/5"}`}>
-                            <link.icon className="w-5 h-5" />
-                          </div>
+                  <ChevronRight
+                    className={`w-5 h-5 transition-transform duration-300 ${
+                      active ? "translate-x-1 text-amber-400" : "text-slate-400"
+                    }`}
+                  />
+                </Link>
+              </motion.div>
+            );
+          })}
+          
+          {/* ADMISSIONS OPEN BUTTON */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: navLinks.length * 0.08, type: "spring", stiffness: 100 }}
+            className="pt-4 border-t border-slate-200 mt-4"
+          >
+            <Link
+              to="/admissions"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center justify-center gap-2 w-full p-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-lg shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 transition-all duration-300"
+            >
+              <GraduationCap className="w-6 h-6" />
+              Admissions Open
+              <ChevronRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
+          
+          {/* Extra padding at bottom */}
+          <div className="h-8"></div>
+        </nav>
 
-                          <span className="font-semibold text-base">{link.label}</span>
-                        </div>
-
-                        <ChevronRight
-                          className={`w-5 h-5 transition-transform duration-300 ${
-                            active ? "translate-x-1" : ""
-                          }`}
-                        />
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </nav>
-
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
     </>
   );
 };
