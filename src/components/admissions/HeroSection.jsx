@@ -684,7 +684,7 @@ const HeroSection = () => {
                 <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl sm:rounded-2xl text-white flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
                   <div className="text-center sm:text-left">
                     <h4 className="font-bold text-base sm:text-lg mb-0.5 sm:mb-1">Still have questions?</h4>
-                    <p className="text-slate-300 text-xs sm:text-sm">Our admissions team is here to help you</p>
+                    <p className="text-slate-300 text-xs sm:text-sm">Our admission team is here to help you</p>
                   </div>
                   <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-white text-slate-900 rounded-full font-semibold text-sm hover:bg-slate-100 transition-colors shadow-lg">
                     <PhoneCall size={16} className="sm:w-[18px] sm:h-[18px]" />
