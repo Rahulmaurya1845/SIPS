@@ -253,7 +253,7 @@ const Footer = () => {
               <div className="mt-6 pt-6 border-t border-white/10">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <div className="text-xl font-bold text-white">15+</div>
+                    <div className="text-xl font-bold text-white">5+</div>
                     <div className="text-xs text-slate-500">Years</div>
                   </div>
                   <div className="text-center">

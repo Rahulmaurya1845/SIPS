@@ -33,33 +33,33 @@ const testimonials = [
     text: "Our focus has always been on holistic development. Academic excellence combined with values creates future leaders.",
     author: "Mr. Rajesh Verma",
     role: "Head of Mathematics",
-    experience: "20+ Years",
+    experience: "5+ Years",
     rating: 5,
     color: "indigo",
     subject: "Mathematics",
-    students: "3,000+",
+    students: "6,00+",
   },
   {
     id: 3,
     text: "Innovation in classrooms and modern labs empower students with real-world skills beyond textbooks.",
     author: "Dr. Priya Nair",
     role: "Science Faculty",
-    experience: "12+ Years",
+    experience: "2+ Years",
     rating: 5,
     color: "violet",
     subject: "Physics & Chemistry",
-    students: "1,800+",
+    students: "200+",
   },
   {
     id: 4,
     text: "Discipline, creativity, and compassion define our institution. We nurture not just minds, but character.",
     author: "Mr. Arvind Singh",
     role: "Vice Principal",
-    experience: "25+ Years",
+    experience: "5+ Years",
     rating: 5,
     color: "cyan",
     subject: "Administration",
-    students: "5,000+",
+    students: "800+",
   },
 ];
 
@@ -323,7 +323,7 @@ const TestimonialsSection = () => {
               </div>
               <div className="bg-white/80 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/60 shadow-lg">
                 <Award className="w-8 h-8 text-purple-500 mb-3" />
-                <div className="text-3xl font-black text-slate-900">15+</div>
+                <div className="text-3xl font-black text-slate-900">5+</div>
                 <div className="text-sm text-slate-500 font-medium">Years Average</div>
               </div>
             </div>

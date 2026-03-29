@@ -182,7 +182,7 @@ const AboutHero = () => {
                     <Award className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-orange-600" />
                   </div>
                   <div>
-                    <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">15+</p>
+                    <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">5+</p>
                     <p className="text-[10px] sm:text-xs text-slate-500">Years Excellence</p>
                   </div>
                 </div>
