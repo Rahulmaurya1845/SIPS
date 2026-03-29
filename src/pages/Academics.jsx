@@ -290,7 +290,7 @@ export default function Academics() {
       description: "Our experienced teachers provide personalized attention, understanding each student's unique learning style for holistic development.",
       stats: [
         { value: "25+", label: "Teachers" },
-        { value: "15+", label: "Years Avg Exp" }
+        { value: "5+", label: "Years Avg Exp" }
       ],
       tags: ["Experienced", "Mentorship"],
       gradient: "from-amber-500 via-orange-500 to-amber-400",

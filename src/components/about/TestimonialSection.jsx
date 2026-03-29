@@ -26,7 +26,7 @@ const testimonials = [
     rating: 5,
     color: "blue",
     subject: "English Literature",
-    students: "2,500+",
+    students: "500+",
   },
   {
     id: 2,
@@ -37,7 +37,7 @@ const testimonials = [
     rating: 5,
     color: "indigo",
     subject: "Mathematics",
-    students: "6,00+",
+    students: "600+",
   },
   {
     id: 3,
