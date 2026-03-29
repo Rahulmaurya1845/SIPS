@@ -648,7 +648,7 @@ const SmartSchoolApp = () => {
               className="flex flex-wrap justify-center items-center gap-4"
             >
               {[
-                { icon: <Phone size={18} />, text: "+91 98765 43210", color: "blue", bg: "bg-blue-50", textCol: "text-blue-600" },
+                { icon: <Phone size={18} />, text: "+91 97923 47399", color: "blue", bg: "bg-blue-50", textCol: "text-blue-600" },
                 { icon: <Mail size={18} />, text: "info@sahodaraschool.edu", color: "rose", bg: "bg-rose-50", textCol: "text-rose-600" },
                 { icon: <Clock size={18} />, text: "Mon-Sat: 8AM - 4PM", color: "amber", bg: "bg-amber-50", textCol: "text-amber-600" },
               ].map((item, idx) => (

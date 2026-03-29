@@ -66,7 +66,7 @@ const Home = () => {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-amber-200/50 shadow-lg shadow-amber-100/30 mb-6 animate-fade-in">
                 <School size={18} className="text-amber-500" />
                 <span className="text-amber-600 font-bold uppercase text-xs sm:text-sm tracking-widest">
-                  Sahodara International
+                  Sahodara International Public School
                 </span>
               </div>
 
@@ -220,7 +220,7 @@ const Home = () => {
                         <CheckCircle className="text-white w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
                       <div>
-                        <p className="font-bold text-slate-800 text-xs sm:text-sm">15+ Years</p>
+                        <p className="font-bold text-slate-800 text-xs sm:text-sm">5+ Years</p>
                         <p className="text-[10px] sm:text-xs text-slate-500">Excellence</p>
                       </div>
                     </div>

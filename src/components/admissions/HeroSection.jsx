@@ -70,7 +70,7 @@ const HeroSection = () => {
       borderColor: "border-rose-200",
       gradient: "from-rose-400 to-rose-600",
       description: "A nurturing environment where young minds explore, play, and develop foundational skills through guided discovery and creative expression.",
-      features: ["Montessori Methods", "Motor Skills Development", "Social-Emotional Learning", "Creative Expression"],
+      features: ["Motor Skills Development", "Social-Emotional Learning", "Creative Expression"],
       activities: ["Art & Craft", "Music & Movement", "Nature Exploration", "Story Sessions"],
       stats: { students: "15 per class", ratio: "1:8", hours: "8:30 AM - 12:30 PM" }
     },
@@ -85,7 +85,7 @@ const HeroSection = () => {
       borderColor: "border-amber-200",
       gradient: "from-amber-400 to-amber-600",
       description: "Building strong academic foundations with innovative teaching methods that foster curiosity, critical thinking, and a lifelong love for learning.",
-      features: ["Inquiry-Based Learning", "Literacy & Numeracy", "STEM Introduction", "Character Building"],
+      features: ["Inquiry-Based Learning", "Literacy & Numeracy", "Character Building"],
       activities: ["Science Labs", "Reading Clubs", "Sports Training", "Drama & Arts"],
       stats: { students: "25 per class", ratio: "1:15", hours: "8:00 AM - 2:30 PM" }
     },
@@ -345,7 +345,7 @@ const HeroSection = () => {
                         <Star key={i} size={12} className="sm:w-4 sm:h-4 text-amber-400 fill-amber-400" />
                       ))}
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1">Trusted by <span className="font-bold text-slate-900">2,000+</span> parents</p>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1">Trusted by <span className="font-bold text-slate-900">1,000+</span> parents</p>
                   </div>
                 </div>
               </div>

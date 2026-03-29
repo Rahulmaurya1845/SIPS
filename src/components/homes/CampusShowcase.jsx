@@ -24,7 +24,7 @@ const PremiumCampusShowcase = () => {
       description: "School staff with our honorable Director Mr. Shebin Abraham Sir, guiding students towards excellence with dedication and vision.",
       image: img1,
       icon: "👨‍🏫",
-      stats: "15+ Years Excellence",
+      stats: "5+ Years Excellence",
       date: "Academic Year 2025-26",
       gradient: "from-blue-600 via-indigo-600 to-purple-600",
       accentColor: "bg-blue-500",
