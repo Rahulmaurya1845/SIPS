@@ -14,47 +14,34 @@ import {
 } from "lucide-react";
 import logo from "../assets/images/logo.png";
 
-// ✅ PERFORMANCE OPTIMIZED NAVBAR - ALL FIXES IN ONE PLACE
 const Navbar = memo(() => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  // Performance refs
   const scrollTimeoutRef = useRef(null);
   const observerRef = useRef(null);
 
-  // ✅ 1. OPTIMIZED SCROLL HANDLER (No lag)
   useEffect(() => {
     let ticking = false;
-
     const handleScroll = () => {
       if (!ticking) {
         scrollTimeoutRef.current = requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20);
           ticking = false;
         });
         ticking = true;
       }
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeoutRef.current) {
-        cancelAnimationFrame(scrollTimeoutRef.current);
-      }
+      if (scrollTimeoutRef.current) cancelAnimationFrame(scrollTimeoutRef.current);
     };
   }, []);
 
-  // ✅ 2. CLOSE MENU ON ROUTE CHANGE (Instant scroll)
   useEffect(() => {
     setMenuOpen(false);
-    // Instant scroll to top - no smooth scroll lag
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [location.pathname]);
 
-  // ✅ 3. BODY SCROLL LOCK (Optimized)
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
@@ -69,95 +56,59 @@ const Navbar = memo(() => {
     };
   }, [menuOpen]);
 
-  // ✅ 4. LAZY LOAD IMAGES & VIDEOS (Critical for speed)
   const setupLazyLoading = useCallback(() => {
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
+    if (observerRef.current) observerRef.current.disconnect();
     observerRef.current = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const element = entry.target;
-
-          // Images
           if (element.tagName === 'IMG' && element.dataset.src) {
             element.src = element.dataset.src;
             element.removeAttribute('data-src');
             element.classList.add('loaded');
           }
-
-          // Videos - Only load when visible
           if (element.tagName === 'VIDEO') {
             if (element.dataset.src) {
               element.src = element.dataset.src;
               element.load();
             }
-            // Play only first 2 videos
             const allVideos = document.querySelectorAll('video');
             const videoIndex = Array.from(allVideos).indexOf(element);
-            if (videoIndex < 2) {
-              element.play().catch(() => {});
-            }
+            if (videoIndex < 2) element.play().catch(() => {});
           }
-
           observerRef.current.unobserve(element);
         }
       });
-    }, {
-      rootMargin: '100px',
-      threshold: 0.01
-    });
-
-    // Observe all lazy elements
-    document.querySelectorAll('img[data-src], video[data-src]').forEach(el => {
-      observerRef.current.observe(el);
-    });
+    }, { rootMargin: '100px', threshold: 0.01 });
+    document.querySelectorAll('img[data-src], video[data-src]').forEach(el => observerRef.current.observe(el));
   }, []);
 
-  // ✅ 5. STOP HIDDEN VIDEOS (Major performance gain)
   const stopHiddenVideos = useCallback(() => {
     const videos = document.querySelectorAll('video');
-
     videos.forEach((video, index) => {
       const rect = video.getBoundingClientRect();
       const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-      // Pause off-screen videos
-      if (!isInViewport && !video.paused) {
-        video.pause();
-      }
-
-      // Only first 2 videos preload
-      if (index > 1) {
-        video.setAttribute('preload', 'none');
-      }
+      if (!isInViewport && !video.paused) video.pause();
+      if (index > 1) video.setAttribute('preload', 'none');
     });
   }, []);
 
-  // ✅ 6. INITIALIZE ALL PERFORMANCE OPTIMIZATIONS
   useEffect(() => {
     const initTimeout = setTimeout(() => {
       setupLazyLoading();
       stopHiddenVideos();
     }, 100);
-
-    // Scroll handler for video optimization
     let videoScrollTimeout;
     const handleVideoScroll = () => {
       clearTimeout(videoScrollTimeout);
       videoScrollTimeout = setTimeout(stopHiddenVideos, 100);
     };
-
     window.addEventListener('scroll', handleVideoScroll, { passive: true });
-
     return () => {
       clearTimeout(initTimeout);
       clearTimeout(videoScrollTimeout);
       window.removeEventListener('scroll', handleVideoScroll);
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      if (observerRef.current) observerRef.current.disconnect();
     };
   }, [setupLazyLoading, stopHiddenVideos]);
 
@@ -174,23 +125,20 @@ const Navbar = memo(() => {
 
   return (
     <>
-      {/* MAIN NAVBAR - FIXED WHITE BACKGROUND */}
-      <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white shadow-md`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* MAIN NAVBAR */}
+      <header className="fixed top-0 left-0 right-0 z-[100] bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-24">
-
-            {/* LOGO SECTION */}
-            <Link to="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
-              {/* Logo - Optimized loading */}
-              <div className="w-32 h-32 sm:w-36 sm:h-36 lg:w-44 lg:h-44 -ml-3 sm:-ml-4 flex items-center justify-center flex-shrink-0">
+            
+            {/* LOGO + SCHOOL NAME - Perfectly aligned side by side */}
+            <Link to="/" className="flex items-center gap-1 sm:gap-3 lg:gap-4 group flex-shrink-0 ml-3 sm:ml-2">
+              {/* Logo - Pushed up to align with school name */}
+              <div className="w-[120px] h-[120px] sm:w-16 sm:h-16 lg:w-36 lg:h-36 flex items-center justify-center flex-shrink-0 -mt-2 sm:mt-0">
                 <img
                   src={logo}
-                  alt="Sahodara International Public School Logo"
-                  className="w-full h-full object-contain"
-                  style={{
-                    mixBlendMode: "multiply",
-                    filter: "contrast(1.1)",
-                  }}
+                  alt="School Logo"
+                  className="w-full h-full object-contain drop-shadow-sm"
+                  style={{ mixBlendMode: "multiply", filter: "contrast(1.15)" }}
                   loading="eager"
                   width="144"
                   height="144"
@@ -198,19 +146,20 @@ const Navbar = memo(() => {
                 />
               </div>
 
-              {/* School Name */}
-              <div className="min-w-0 flex-1">
-                <h1 className="text-sm sm:text-base lg:text-xl font-bold leading-tight tracking-tight text-slate-900 truncate">
-                  Sahodara International
+              {/* School Name - Perfectly aligned with logo */}
+              <div className="flex flex-col justify-center -ml-1 sm:ml-0">
+                <h1 className="text-[13px] sm:text-sm lg:text-xl font-black leading-none tracking-tight text-slate-900">
+                  <span className="block sm:inline mb-0.5 sm:mb-0">Sahodara</span>{' '}
+                  <span className="block sm:inline text-indigo-700">International</span>
                 </h1>
-                <span className="block text-xs lg:text-sm font-medium text-slate-500">
+                <span className="text-[10px] sm:text-xs lg:text-sm font-bold text-slate-600 uppercase tracking-wide mt-0.5 sm:mt-0">
                   Public School
                 </span>
               </div>
             </Link>
 
             {/* DESKTOP NAVIGATION */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1 ml-8 xl:ml-12">
               {navLinks.map((link) => {
                 const active = isLinkActive(link.path);
                 return (
@@ -218,24 +167,20 @@ const Navbar = memo(() => {
                     key={link.path}
                     to={link.path}
                     className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 group ${
-                      active
-                        ? "text-blue-600"
-                        : "text-slate-600 hover:text-slate-900"
+                      active ? "text-indigo-700" : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       <link.icon className="w-4 h-4" />
                       {link.label}
                     </span>
-
                     {active && (
                       <motion.div
                         layoutId="activeNav"
-                        className="absolute inset-0 rounded-full bg-blue-50"
+                        className="absolute inset-0 rounded-full bg-indigo-50"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
-
                     <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-100" />
                   </NavLink>
                 );
@@ -243,38 +188,35 @@ const Navbar = memo(() => {
             </nav>
 
             {/* CTA BUTTON */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:block ml-6">
               <Link to="/admissions">
-                <button className="px-6 py-3 rounded-full font-semibold text-sm shadow-lg transition-all duration-300 hover:scale-105 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-blue-500/25 hover:shadow-blue-500/40">
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap bg-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all"
+                >
                   Admissions Open
-                </button>
+                </motion.button>
               </Link>
             </div>
 
             {/* MOBILE MENU BUTTON */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`lg:hidden relative p-2.5 rounded-xl transition-all duration-300 flex-shrink-0 ml-2 ${
-                menuOpen
-                  ? "text-white bg-blue-600"
-                  : "text-slate-900 bg-slate-100 hover:bg-slate-200"
+              className={`lg:hidden relative p-2 rounded-lg transition-all duration-300 flex-shrink-0 ml-2 ${
+                menuOpen ? "text-white bg-indigo-700" : "text-slate-900 bg-slate-100 hover:bg-slate-200"
               }`}
             >
-              {menuOpen ? (
-                <X className="w-5 h-5 sm:w-6 sm:h-6" />
-              ) : (
-                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-              )}
+              {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* MOBILE MENU - OPTIMIZED */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -283,8 +225,6 @@ const Navbar = memo(() => {
               onClick={() => setMenuOpen(false)}
               className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[150] lg:hidden"
             />
-
-            {/* Sidebar */}
             <motion.div
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -292,60 +232,40 @@ const Navbar = memo(() => {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed top-0 left-0 bottom-0 w-[85%] max-w-[320px] bg-white z-[200] lg:hidden shadow-2xl flex flex-col"
             >
-              {/* UPPER SECTION - HEADER */}
               <div className="flex-shrink-0 bg-white">
-                <div className="flex items-center gap-4 p-5">
-                  {/* Logo with ZOOM EFFECT */}
+                <div className="flex items-center gap-1 p-4">
                   <motion.div 
                     initial={{ scale: 1.15, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="w-28 h-28 flex items-center justify-center flex-shrink-0"
+                    className="w-[120px] h-[120px] flex items-center justify-center flex-shrink-0 -mt-2"
                   >
                     <img
                       src={logo}
                       alt="School Logo"
                       className="w-full h-full object-contain drop-shadow-md"
-                      style={{
-                        mixBlendMode: "multiply",
-                        filter: "contrast(1.2) saturate(1.1)",
-                      }}
+                      style={{ mixBlendMode: "multiply", filter: "contrast(1.2)" }}
                       loading="eager"
                       decoding="async"
                     />
                   </motion.div>
-
-                  {/* School Name */}
-                  <div className="flex-1 min-w-0">
-                    <h2 className="text-slate-900 font-bold text-lg leading-tight">
-                      Sahodara
+                  <div className="flex flex-col justify-center -ml-1">
+                    <h2 className="text-[13px] font-black leading-none tracking-tight text-slate-900">
+                      <span className="block mb-0.5">Sahodara</span>
+                      <span className="block text-indigo-700">International</span>
                     </h2>
-                    <h2 className="text-slate-900 font-bold text-lg leading-tight">
-                      International
-                    </h2>
-                    <p className="text-blue-600 font-bold text-sm leading-tight mt-1.5">
-                      Public School
-                    </p>
+                    <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wide mt-0.5">Public School</span>
                   </div>
-
-                  {/* Close Button */}
-                  <button
-                    onClick={() => setMenuOpen(false)}
-                    className="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors flex-shrink-0 self-start"
-                  >
+                  <button onClick={() => setMenuOpen(false)} className="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors flex-shrink-0 self-start ml-auto">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
-
-                {/* DIVIDER LINE */}
-                <div className="mx-5 h-0.5 bg-slate-200 rounded-full"></div>
+                <div className="mx-4 h-0.5 bg-slate-200 rounded-full"></div>
               </div>
 
-              {/* LOWER SECTION - NAVIGATION */}
-              <nav className="flex-1 overflow-y-auto py-5 px-3 space-y-2 bg-white">
+              <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-2 bg-white">
                 {navLinks.map((link, index) => {
                   const active = isLinkActive(link.path);
-
                   return (
                     <motion.div
                       key={link.path}
@@ -356,10 +276,8 @@ const Navbar = memo(() => {
                       <Link
                         to={link.path}
                         onClick={() => setMenuOpen(false)}
-                        className={`flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-300 ${
-                          active
-                            ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
-                            : "text-slate-700 hover:bg-amber-50 hover:text-amber-600"
+                        className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 ${
+                          active ? "bg-indigo-700 text-white shadow-md shadow-indigo-700/20" : "text-slate-700 hover:bg-slate-100"
                         }`}
                       >
                         <div className={`p-2 rounded-lg ${active ? "bg-white/20" : "bg-slate-100"}`}>
@@ -371,35 +289,18 @@ const Navbar = memo(() => {
                     </motion.div>
                   );
                 })}
-                
-                {/* ADMISSIONS BUTTON */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navLinks.length * 0.05 }}
-                  className="pt-4 px-3"
-                >
-                  <Link
-                    to="/admissions"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 w-full p-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-sm shadow-lg shadow-orange-500/30"
-                  >
+                <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: navLinks.length * 0.05 }} className="pt-3 px-3">
+                  <Link to="/admissions" onClick={() => setMenuOpen(false)} className="flex items-center justify-center gap-2 w-full p-3 rounded-xl bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-500/30 whitespace-nowrap">
                     <GraduationCap className="w-5 h-5" />
                     Admissions Open
                     <ChevronRight className="w-4 h-4" />
                   </Link>
                 </motion.div>
-                
-                {/* Footer */}
-                <div className="mt-6 px-4 py-4 bg-slate-50 rounded-xl mx-3 border border-slate-100">
-                  <p className="text-slate-700 text-xs font-medium text-center">
-                    📍 Sahodara International Public School
-                  </p>
-                  <p className="text-slate-500 text-xs text-center mt-1">
-                    Excellence in Education
-                  </p>
+                <div className="mt-4 px-3 py-3 bg-slate-50 rounded-xl mx-2 border border-slate-100">
+                  <p className="text-slate-700 text-xs font-medium text-center">Sahodara International Public School</p>
+                  <p className="text-slate-500 text-xs text-center mt-1">Excellence in Education</p>
                 </div>
-                <div className="h-6"></div>
+                <div className="h-4"></div>
               </nav>
             </motion.div>
           </>
